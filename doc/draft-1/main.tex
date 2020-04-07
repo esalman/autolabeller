@@ -1,4 +1,4 @@
-\documentclass[a4paper]{article}
+\documentclass[letter]{article}
 
 %% Language and font encodings
 \usepackage[T1]{fontenc}
@@ -31,16 +31,16 @@
 
 \usepackage[colorinlistoftodos]{todonotes}
 
+\usepackage[nolist,nohyperlinks]{acronym}
 
 
 
 %\renewcommand{\headrulewidth}{0pt}
 \fancyhead[L]{Posted: \today}
 \fancyhead[R]{
-\includegraphics[width=4cm]{engrXiv_banner.png}
 }
 \pagestyle{plain}
-\title{Your Paper}
+\title{Automatic Anatomical \& Functional Labeling of Brain Activity Maps}
 \author[1]{Jane A. Author}
 \author[2,*]{Jim B. Author}
 \affil[1]{Department of Earth; \orcid{0000-0000-0000-0000}}
@@ -58,66 +58,95 @@ Your abstract.
 
 \section{Introduction}
 
-Your introduction goes here!
+[group ICA]
 
-\section{Some examples to get started}
+[falff and dyn range]
 
-\subsection{How to include Figures}
+[REST toolbox masks]
 
-First you have to make sure image file is located somewhere you can find it. If you are authoring on Overleaf, upload the image file from your computer using the upload link the project menu. Then use the includegraphics command to include it in your document. Use the figure environment and the caption command to add a number and a caption to your figure. See the code for Figure \ref{fig:frog} in this section for an example.
+[anatomical atlas]
 
-\begin{figure}
-\centering
-\includegraphics[width=0.3\textwidth]{frog.jpg}
-\caption{\label{fig:frog}This is a frog.}
-\end{figure}
+[functional atlas]
 
+[modularity]
 
-\subsection{How to add Tables}
+\section{Methods}
 
-Use the table and tabular commands for basic tables --- see Table~\ref{tab:widgets}, for example.
+\subsection{Data}
 
-\begin{table}
-\centering
-\begin{tabular}{@{}l l@{}}
-\toprule
-Item & Quantity \\
-\midrule
-Widgets & 42 \\
-Gadgets & 13 \\
-\bottomrule
-\end{tabular}
-\caption{\label{tab:widgets}An example table.}
-\end{table}
+\subsubsection{FBIRN}
 
-\subsection{How to write Mathematics}
+\subsubsection{COBRE}
 
-\LaTeX{} is great at typesetting mathematics. Let $X_1, X_2, \ldots, X_n$ be a sequence of independent and identically distributed random variables with $\text{E}[X_i] = \mu$ and $\text{Var}[X_i] = \sigma^2 < \infty$, and let
-\[S_n = \frac{X_1 + X_2 + \cdots + X_n}{n}
-      = \frac{1}{n}\sum_{i}^{n} X_i\]
-denote their mean. Then as $n$ approaches infinity, the random variables $\sqrt{n}(S_n - \mu)$ converge in distribution to a normal $\mathcal{N}(0, \sigma^2)$.
+\subsubsection{BSNIP}
 
+\subsubsection{NeuroMark}
 
-\subsection{How to create Sections and Subsections}
+\subsection{Group ICA}
 
-Use section and subsections to organize your document. Simply use the section and subsection buttons in the toolbar to create them, and we'll handle all the formatting and numbering automatically.
+The simplest way to use the autolabeller is to run it with the group \ac{ICA} session information file as the input. 
+Prior to that we need to ensure that the group \ac{ICA} on the given \ac{fMRI} dataset has finished successfully, and the \ac{ICA} post-processing step has been completed.
+The \ac{ICA} post-processing step generates the \ac{fALFF} and dynamic range values of the \acp{IC} \acp{TC} as well as the mean static \ac{FNC} matrix across all subjects.
+In the \ac{GIFT} toolbox, generating the HTML report will ensure that the post-processing step has been run.
 
-\subsection{How to add Lists}
+\subsection{Identifying Resting-State Networks}
 
-You can make lists with automatic numbering \dots
+We trained a logistic regression model with different \ac{IC} characteristics or features in order to separate \ac{RSN} from artifacts.
+Five different features were used.
+Two of those are based on the \ac{IC} \ac{TC} characteristics, such as \ac{fALFF} and dynamic range.
+The other three features are based on the \ac{IC} spatial map characteristics, such as correlations with edge motion mask, \ac{CSF} mask and white matter mask.
 
-\begin{enumerate}
-\item Like this,
-\item and like this.
-\end{enumerate}
-\dots or bullet points \dots
-\begin{itemize}
-\item Like this,
-\item and like this.
-\end{itemize}
+[the masks come from REST toolbox]
 
-\subsection{Inserting Citations}
-Citations can be inserted using standard latex formatting by called the identifier in the .bib file. Like this \citep{einstein1935can,Kucsko2013}.
+The output of the model is either 0 or 1, indicating artifact or \ac{RSN} respectively.
+We obtained the logistic regression model parameters by training on the \ac{FBIRN} dataset features, which could be used on any testing dataset to identify those.
+
+\subsubsection{Training Data}
+
+We trained a logistic regression model with different \ac{IC} characteristics in order to separate \ac{RSN} from artifacts.
+We obtained these training \acp{IC} and their labels from the \ac{FBIRN} dataset \cite{b1}.
+
+\subsubsection{Testing Data}
+
+We ran two separate group \ac{ICA} analysis on \ac{BSNIP} and \ac{COBRE} datasets and tested the autolabeller on the resulting \ac{IC} spatial maps.
+
+\subsection{Anatomical Labeling of Spatial Maps}
+
+We determined the anatomical label of a region of activation by correlating the spatial map with known regions in a given anatomical atlas.
+A number of anatomical atlas are available.
+We first used the \ac{AAL} atlas which is probably the most widely used cortical parcellation map in the literature \cite{b2}.
+As we develop the autolabeller, we will add more choices of anatomical atlases.
+
+\subsection{Functional Labeling of Spatial Maps}
+
+We determined the functional label of a region of activation by correlating the spatial map with known regions in a given functional parcellation of the brain.
+Several functional parcellations are available.
+We first used the Yeo 2011 functional parcellations (17 networks version) in conjunction with the Buckner functional cerebellar parcellation \cite{b3,b4}.
+As we develop the autolabeller, we will add more choices of functional parcellations.
+
+\subsection{Reordering of FNC Matrix}
+
+\section{Results}
+
+\section{Discussion}
+
+[motion estimate considerations]
+
+\begin{acronym}
+    \acro{AAL}{Automated Anatomical Labeling}
+    \acro{BSNIP}{Bipolar-Schizophrenia Network on Intermediate Phenotypes}
+    \acro{COBRE}{Centers of Biomedical Research Excellence}
+    \acro{CSF}{cerebrospinal fluid}
+    \acro{fALFF}{fractional amplitude of low frequency fluctuation}
+    \acro{FBIRN}{Function Biomedical Informatics Research Network}
+    \acro{fMRI}{functional magnetic resonance imaging}
+    \acro{FNC}{functional network connectivity}
+    \acro{GIFT}{group ICA for fMRI toolbox}
+    \acro{IC}{independent component}
+    \acro{ICA}{independent component analysis}
+    \acro{RSN}{resting-state network}
+    \acro{TC}{time course}
+\end{acronym}
 
 \bibliographystyle{apalike-refs}
 \bibliography{sample}

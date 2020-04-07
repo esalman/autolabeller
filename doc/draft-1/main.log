@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 2.9.7300 64-bit) (preloaded format=pdflatex 2020.2.26)  4 APR 2020 22:42
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 2.9.7300 64-bit) (preloaded format=pdflatex 2020.2.26)  7 APR 2020 15:19
 entering extended mode
 **./main.tex
 (main.tex
@@ -811,13 +811,36 @@ LaTeX Info: Redefining \addtolength on input line 81.
 )
 \c@@todonotes@numberoftodonotes=\count303
 )
+("C:\Users\cpusa\AppData\Local\Programs\MiKTeX 2.9\tex/latex/acronym\acronym.st
+y"
+Package: acronym 2020/03/13 v1.46 Support for acronyms (Tobias Oetiker)
+
+("C:\Users\cpusa\AppData\Local\Programs\MiKTeX 2.9\tex/latex/bigfoot\suffix.sty
+"
+Package: suffix 2006/07/15 1.5a Variant command support
+)
+("C:\Users\cpusa\AppData\Local\Programs\MiKTeX 2.9\tex/latex/xstring\xstring.st
+y"
+("C:\Users\cpusa\AppData\Local\Programs\MiKTeX 2.9\tex/generic/xstring\xstring.
+tex"
+\integerpart=\count304
+\decimalpart=\count305
+)
+Package: xstring 2019/02/06 v1.83 String manipulations (CT)
+)
+\AC@clearlist=\toks40
+)
 ("C:\Users\cpusa\AppData\Local\Programs\MiKTeX 2.9\tex/latex/l3backend\l3backen
 d-pdfmode.def"
 File: l3backend-pdfmode.def 2020-02-23 L3 backend support: PDF mode
-\l__kernel_color_stack_int=\count304
+\l__kernel_color_stack_int=\count306
 \l__pdf_internal_box=\box58
 )
-No file main.aux.
+
+LaTeX Warning: Unused global option(s):
+    [letter].
+
+(main.aux)
 \openout1 = `main.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 51.
@@ -865,16 +888,17 @@ Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
 ettitlestring.sty"
 Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
-\c@section@level=\count305
+\c@section@level=\count307
 )
 LaTeX Info: Redefining \ref on input line 51.
 LaTeX Info: Redefining \pageref on input line 51.
 LaTeX Info: Redefining \nameref on input line 51.
+ (main.out) (main.out)
 \@outlinefile=\write4
 \openout4 = `main.out'.
 
-\c@mv@tabular=\count306
-\c@mv@boldtabular=\count307
+\c@mv@tabular=\count308
+\c@mv@boldtabular=\count309
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -914,17 +938,17 @@ LaTeX Info: Redefining \nameref on input line 51.
 ("C:\Users\cpusa\AppData\Local\Programs\MiKTeX 2.9\tex/context/base/mkii\supp-p
 df.mkii"
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count308
+\scratchcounter=\count310
 \scratchdimen=\dimen280
 \scratchbox=\box60
-\nofMPsegments=\count309
-\nofMParguments=\count310
-\everyMPshowfont=\toks40
-\MPscratchCnt=\count311
+\nofMPsegments=\count311
+\nofMParguments=\count312
+\everyMPshowfont=\toks41
+\MPscratchCnt=\count313
 \MPscratchDim=\dimen281
-\MPnumerator=\count312
-\makeMPintoPDFobject=\count313
-\everyMPtoPDFconversion=\toks41
+\MPnumerator=\count314
+\makeMPintoPDFobject=\count315
+\everyMPtoPDFconversion=\toks42
 )
 ("C:\Users\cpusa\AppData\Local\Programs\MiKTeX 2.9\tex/latex/epstopdf-pkg\epsto
 pdf-base.sty"
@@ -958,85 +982,57 @@ LaTeX Font Info:    Font shape `T1/Carlito-LF/m/n' will be
 LaTeX Font Info:    Font shape `T1/Carlito-LF/b/n' will be
 (Font)              scaled to size 14.4pt on input line 59.
 LaTeX Font Info:    Font shape `T1/Carlito-LF/b/n' will be
-(Font)              scaled to size 12.0pt on input line 65.
+(Font)              scaled to size 12.0pt on input line 69.
 LaTeX Font Info:    Font shape `T1/Carlito-LF/b/n' will be
-(Font)              scaled to size 10.0pt on input line 67.
+(Font)              scaled to size 10.0pt on input line 71.
+Package acronym Info: Label `acro:ICA' newly defined as it shall be overridden
+although it is yet undefined on input line 81.
+Package acronym Info: Label `acro:fMRI' newly defined as it shall be overridden
 
+although it is yet undefined on input line 82.
+Package acronym Info: Label `acro:fALFF' newly defined as it shall be overridde
+n
+although it is yet undefined on input line 83.
+Package acronym Info: Label `acro:IC' newly defined as it shall be overridden
+although it is yet undefined on input line 83.
+Package acronym Info: Label `acro:TC' newly defined as it shall be overridden
+although it is yet undefined on input line 83.
+Package acronym Info: Label `acro:FNC' newly defined as it shall be overridden
+although it is yet undefined on input line 83.
+Package acronym Info: Label `acro:GIFT' newly defined as it shall be overridden
 
-LaTeX Warning: Reference `fig:frog' on page 1 undefined on input line 67.
-
-
-LaTeX Warning: File `frog.jpg' not found on input line 71.
-
-
-! Package pdftex.def Error: File `frog.jpg' not found: using draft setting.
-
-See the pdftex.def package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.71 ...udegraphics[width=0.3\textwidth]{frog.jpg}
-                                                  
-? 
-
-LaTeX Warning: Reference `tab:widgets' on page 1 undefined on input line 78.
-
-LaTeX Font Info:    Font shape `T1/Carlito-LF/m/n' will be
-(Font)              scaled to size 7.0pt on input line 95.
-LaTeX Font Info:    Font shape `T1/Carlito-LF/m/n' will be
-(Font)              scaled to size 5.0pt on input line 95.
-
-LaTeX Warning: File `engrXiv_banner.png' not found on input line 101.
-
-
-! Package pdftex.def Error: File `engrXiv_banner.png' not found: using draft se
-tting.
-
-See the pdftex.def package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.101 \subsection
-                 {How to create Sections and Subsections}
-? 
-
-Package Fancyhdr Warning: \headheight is too small (41.0pt): 
-Make it at least 117.41733pt.
-We now make it that large for the rest of the document.
-This may cause the page layout to be inconsistent, however.
+although it is yet undefined on input line 84.
+Package acronym Info: Label `acro:RSN' newly defined as it shall be overridden
+although it is yet undefined on input line 88.
+Package acronym Info: Label `acro:CSF' newly defined as it shall be overridden
+although it is yet undefined on input line 91.
+Package acronym Info: Label `acro:FBIRN' newly defined as it shall be overridde
+n
+although it is yet undefined on input line 98.
 
 [1{C:/Users/cpusa/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}
 
 ]
-LaTeX Font Info:    Trying to load font information for TS1+Carlito-LF on input
- line 115.
-
-("C:\Users\cpusa\AppData\Local\Programs\MiKTeX 2.9\tex/latex/carlito\ts1carlito
--lf.fd"
-File: TS1Carlito-LF.fd 2014/08/20 (autoinst) Font definitions for TS1/Carlito-L
-F.
+Package acronym Info: Label `acro:BSNIP' newly defined as it shall be overridde
+n
+although it is yet undefined on input line 107.
+Package acronym Info: Label `acro:COBRE' newly defined as it shall be overridde
+n
+although it is yet undefined on input line 107.
+Package acronym Info: Label `acro:AAL' newly defined as it shall be overridden
+although it is yet undefined on input line 113.
+ (main.bbl
+LaTeX Font Info:    Font shape `T1/Carlito-LF/m/it' will be
+(Font)              scaled to size 10.0pt on input line 8.
+("C:\Users\cpusa\AppData\Local\Programs\MiKTeX 2.9\tex/latex/ucs\uni-0.def"
+File: uni-0.def 2013/05/13 UCS: Unicode data U+0000..U+00FF
 )
-LaTeX Font Info:    Font shape `TS1/Carlito-LF/m/n' will be
-(Font)              scaled to size 10.0pt on input line 115.
-
-
-Package natbib Warning: Citation `einstein1935can' on page 2 undefined on input
- line 120.
-
-
-Package natbib Warning: Citation `Kucsko2013' on page 2 undefined on input line
- 120.
-
-No file main.bbl.
-
-Package natbib Warning: There were undefined citations.
-
-[2]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 125.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 125.
+[2]) [3]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 148.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 148.
  (main.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 125.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 125.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 148.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 148.
 
 
 Package rerunfilecheck Warning: File `main.out' has changed.
@@ -1044,42 +1040,36 @@ Package rerunfilecheck Warning: File `main.out' has changed.
 (rerunfilecheck)                or use package `bookmark'.
 
 Package rerunfilecheck Info: Checksums for `main.out':
-(rerunfilecheck)             Before: <no file>
-(rerunfilecheck)             After:  0DE6DD804D4B0E7C75B55A970E9D8BF9;540.
-
-LaTeX Warning: There were undefined references.
-
+(rerunfilecheck)             Before: 54297469111BE214C79DC8B84CAF1503;801
+(rerunfilecheck)             After:  9D57363EBBFFEEDA915FE9E1EFE82BFA;1021.
 
 LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 125.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 148.
  ) 
 Here is how much of TeX's memory you used:
- 19456 strings out of 481545
- 367390 string characters out of 2913488
- 630390 words of memory out of 3000000
- 34245 multiletter control sequences out of 15000+200000
- 630786 words of font info for 65 fonts, out of 3000000 for 9000
+ 20530 strings out of 481545
+ 380367 string characters out of 2913488
+ 644927 words of memory out of 3000000
+ 35302 multiletter control sequences out of 15000+200000
+ 622338 words of font info for 62 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 68i,14n,83p,955b,474s stack positions out of 5000i,500n,10000p,200000b,50000s
-{C:/Users/cpusa/AppData/Local/Programs/MiKTeX 2.9/fonts/enc/dvips/carlito/crl
-t_llspvt.enc} <C:\Users\cpusa\AppData\Local\MiKTeX\2.9\fonts/pk/ljfour/jknappen
-/ec/dpi600\ecrm1000.pk>{C:/Users/cpusa/AppData/Local/Programs/MiKTeX 2.9/fonts/
-enc/dvips/carlito/crlt_csjzgd.enc} <C:\Users\cpusa\AppData\Local\MiKTeX\2.9\fon
-ts/pk/ljfour/jknappen/ec/dpi600\ectt1200.pk> <C:\Users\cpusa\AppData\Local\MiKT
-eX\2.9\fonts/pk/ljfour/jknappen/ec/dpi600\ectt1000.pk><C:/Users/cpusa/AppData/L
-ocal/Programs/MiKTeX 2.9/fonts/type1/typoland/carlito/Carlito-Bold.pfb><C:/User
-s/cpusa/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/typoland/carlito/Carlito.
-pfb><C:/Users/cpusa/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfon
-ts/cm/cmex10.pfb><C:/Users/cpusa/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/
-public/amsfonts/cm/cmmi10.pfb><C:/Users/cpusa/AppData/Local/Programs/MiKTeX 2.9
-/fonts/type1/public/amsfonts/cm/cmmi7.pfb><C:/Users/cpusa/AppData/Local/Program
-s/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/cpusa/AppData/L
-ocal/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Users/cpus
-a/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
-Output written on main.pdf (2 pages, 116814 bytes).
+ 68i,11n,83p,955b,597s stack positions out of 5000i,500n,10000p,200000b,50000s
+pdfTeX warning (dest): name{section.5} has been referenced but does not exist
+, replaced by a fixed one
+
+ <C:\Users\cpusa\AppData\Local\MiKTeX\2.9\fonts/pk/ljfour/jknappen/ec/dpi600\ec
+tt1000.pk>{C:/Users/cpusa/AppData/Local/Programs/MiKTeX 2.9/fonts/enc/dvips/car
+lito/crlt_csjzgd.enc} <C:\Users\cpusa\AppData\Local\MiKTeX\2.9\fonts/pk/ljfour/
+jknappen/ec/dpi600\ecrm1000.pk> <C:\Users\cpusa\AppData\Local\MiKTeX\2.9\fonts/
+pk/ljfour/jknappen/ec/dpi600\ectt1200.pk><C:/Users/cpusa/AppData/Local/Programs
+/MiKTeX 2.9/fonts/type1/typoland/carlito/Carlito-Bold.pfb><C:/Users/cpusa/AppDa
+ta/Local/Programs/MiKTeX 2.9/fonts/type1/typoland/carlito/Carlito-Italic.pfb><C
+:/Users/cpusa/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/typoland/carlito/Ca
+rlito.pfb>
+Output written on main.pdf (3 pages, 105041 bytes).
 PDF statistics:
- 142 PDF objects out of 1000 (max. 8388607)
- 15 named destinations out of 1000 (max. 500000)
- 109 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 216 PDF objects out of 1000 (max. 8388607)
+ 26 named destinations out of 1000 (max. 500000)
+ 213 words of extra memory for PDF output out of 10000 (max. 10000000)
 

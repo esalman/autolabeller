@@ -1,0 +1,48 @@
+\begin{thebibliography}{}
+
+\bibitem[Buckner et~al., 2011]{b4}
+Buckner, R.~L., Krienen, F.~M., Castellanos, A., Diaz, J.~C., and Yeo, B. T.~T.
+  (2011).
+\newblock The organization of the human cerebellum estimated by intrinsic
+  functional connectivity.
+\newblock {\em Journal of Neurophysiology}, 106(5):2322--2345, ISSN: {\ttfamily
+  0022-3077}, DOI: \href{https://dx.doi.org/10.1152/jn.00339.2011}{\ttfamily
+  10.1152/jn.00339.2011},
+  \url{https://journals.physiology.org/doi/full/10.1152/jn.00339.2011}.
+\newblock Publisher: American Physiological Society.
+
+\bibitem[Damaraju et~al., 2014]{b1}
+Damaraju, E., Allen, E., Belger, A., Ford, J., McEwen, S., Mathalon, D.,
+  Mueller, B., Pearlson, G., Potkin, S., Preda, A., Turner, J., Vaidya, J., van
+  Erp, T., and Calhoun, V. (2014).
+\newblock Dynamic functional connectivity analysis reveals transient states of
+  dysconnectivity in schizophrenia.
+\newblock {\em NeuroImage: Clinical}, 5:298--308, ISSN: {\ttfamily 22131582},
+  DOI: \href{https://dx.doi.org/10.1016/j.nicl.2014.07.003}{\ttfamily
+  10.1016/j.nicl.2014.07.003},
+  \url{http://linkinghub.elsevier.com/retrieve/pii/S2213158214000953}.
+\newblock 00210.
+
+\bibitem[Tzourio-Mazoyer et~al., 2002]{b2}
+Tzourio-Mazoyer, N., Landeau, B., Papathanassiou, D., Crivello, F., Etard, O.,
+  Delcroix, N., Mazoyer, B., and Joliot, M. (2002).
+\newblock Automated {Anatomical} {Labeling} of {Activations} in {SPM} {Using} a
+  {Macroscopic} {Anatomical} {Parcellation} of the {MNI} {MRI}
+  {Single}-{Subject} {Brain}.
+\newblock {\em NeuroImage}, 15(1):273--289, ISSN: {\ttfamily 1053-8119}, DOI:
+  \href{https://dx.doi.org/10.1006/nimg.2001.0978}{\ttfamily
+  10.1006/nimg.2001.0978},
+  \url{http://www.sciencedirect.com/science/article/pii/S1053811901909784}.
+\newblock 08299 AAL.
+
+\bibitem[Yeo et~al., 2011]{b3}
+Yeo, B. T.~T., Krienen, F.~M., Sepulcre, J., Sabuncu, M.~R., Lashkari, D.,
+  Hollinshead, M., Roffman, J.~L., Smoller, J.~W., Zöllei, L., Polimeni,
+  J.~R., Fischl, B., Liu, H., and Buckner, R.~L. (2011).
+\newblock The organization of the human cerebral cortex estimated by intrinsic
+  functional connectivity.
+\newblock {\em J. Neurophysiol.}, 106(3):1125--1165, ISSN: {\ttfamily
+  1522-1598}, DOI: \href{https://dx.doi.org/10.1152/jn.00338.2011}{\ttfamily
+  10.1152/jn.00338.2011}.
+
+\end{thebibliography}
