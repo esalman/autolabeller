@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 2.9.7300 64-bit) (preloaded format=pdflatex 2020.2.26)  7 APR 2020 15:19
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 2.9.7300 64-bit) (preloaded format=pdflatex 2020.2.26)  9 APR 2020 17:56
 entering extended mode
 **./main.tex
 (main.tex
@@ -835,32 +835,27 @@ d-pdfmode.def"
 File: l3backend-pdfmode.def 2020-02-23 L3 backend support: PDF mode
 \l__kernel_color_stack_int=\count306
 \l__pdf_internal_box=\box58
-)
-
-LaTeX Warning: Unused global option(s):
-    [letter].
-
-(main.aux)
+) (main.aux)
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 51.
-LaTeX Font Info:    ... okay on input line 51.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 51.
-LaTeX Font Info:    ... okay on input line 51.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 51.
-LaTeX Font Info:    ... okay on input line 51.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 51.
-LaTeX Font Info:    ... okay on input line 51.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 51.
-LaTeX Font Info:    ... okay on input line 51.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 51.
-LaTeX Font Info:    ... okay on input line 51.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 51.
-LaTeX Font Info:    ... okay on input line 51.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 51.
-LaTeX Font Info:    ... okay on input line 51.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 54.
+LaTeX Font Info:    ... okay on input line 54.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 54.
+LaTeX Font Info:    ... okay on input line 54.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 54.
+LaTeX Font Info:    ... okay on input line 54.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 54.
+LaTeX Font Info:    ... okay on input line 54.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 54.
+LaTeX Font Info:    ... okay on input line 54.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 54.
+LaTeX Font Info:    ... okay on input line 54.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 54.
+LaTeX Font Info:    ... okay on input line 54.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 54.
+LaTeX Font Info:    ... okay on input line 54.
 LaTeX Font Info:    Trying to load font information for T1+Carlito-LF on input 
-line 51.
+line 54.
 
 ("C:\Users\cpusa\AppData\Local\Programs\MiKTeX 2.9\tex/latex/carlito\t1carlito-
 lf.fd"
@@ -868,13 +863,13 @@ File: T1Carlito-LF.fd 2014/08/20 (autoinst) Font definitions for T1/Carlito-LF.
 
 )
 LaTeX Font Info:    Font shape `T1/Carlito-LF/m/n' will be
-(Font)              scaled to size 10.0pt on input line 51.
+(Font)              scaled to size 10.0pt on input line 54.
 
 ("C:\Users\cpusa\AppData\Local\Programs\MiKTeX 2.9\tex/latex/ucs\ucsencs.def"
 File: ucsencs.def 2011/01/21 Fixes to fontencodings LGR, T3
 )
 \AtBeginShipoutBox=\box59
-Package hyperref Info: Link coloring ON on input line 51.
+Package hyperref Info: Link coloring ON on input line 54.
 
 ("C:\Users\cpusa\AppData\Local\Programs\MiKTeX 2.9\tex/latex/hyperref\nameref.s
 ty"
@@ -890,9 +885,9 @@ Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
 \c@section@level=\count307
 )
-LaTeX Info: Redefining \ref on input line 51.
-LaTeX Info: Redefining \pageref on input line 51.
-LaTeX Info: Redefining \nameref on input line 51.
+LaTeX Info: Redefining \ref on input line 54.
+LaTeX Info: Redefining \pageref on input line 54.
+LaTeX Info: Redefining \nameref on input line 54.
  (main.out) (main.out)
 \@outlinefile=\write4
 \openout4 = `main.out'.
@@ -904,16 +899,16 @@ LaTeX Info: Redefining \nameref on input line 51.
 *geometry* detected driver: pdftex
 *geometry* verbose mode - [ preamble ] result:
 * driver: pdftex
-* paper: a4paper
+* paper: letterpaper
 * layout: <same size as paper>
 * layoutoffset:(h,v)=(0.0pt,0.0pt)
 * modes: 
-* h-part:(L,W,R)=(85.35826pt, 426.79135pt, 85.35826pt)
-* v-part:(T,H,B)=(85.35826pt, 702.78308pt, 56.9055pt)
-* \paperwidth=597.50787pt
-* \paperheight=845.04684pt
-* \textwidth=426.79135pt
-* \textheight=702.78308pt
+* h-part:(L,W,R)=(85.35826pt, 443.57848pt, 85.35826pt)
+* v-part:(T,H,B)=(85.35826pt, 652.70622pt, 56.9055pt)
+* \paperwidth=614.295pt
+* \paperheight=794.96999pt
+* \textwidth=443.57848pt
+* \textheight=652.70622pt
 * \oddsidemargin=13.08827pt
 * \evensidemargin=13.08827pt
 * \topmargin=-52.91173pt
@@ -960,116 +955,130 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 Package todonotes Warning: The length marginparwidth is less than 2cm and will 
 most likely cause issues with the appearance of inserted todonotes. The issue c
 an be solved by adding a line like \setlength {\marginparwidth }{2cm} prior to 
-loading the todonotes package. on input line 51.
+loading the todonotes package. on input line 54.
 
 LaTeX Font Info:    Font shape `T1/Carlito-LF/m/n' will be
-(Font)              scaled to size 17.28pt on input line 52.
+(Font)              scaled to size 17.28pt on input line 55.
 LaTeX Font Info:    Font shape `T1/Carlito-LF/m/n' will be
-(Font)              scaled to size 12.0pt on input line 52.
+(Font)              scaled to size 12.0pt on input line 55.
 LaTeX Font Info:    Font shape `T1/Carlito-LF/m/n' will be
-(Font)              scaled to size 8.0pt on input line 52.
+(Font)              scaled to size 8.0pt on input line 55.
 LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 5
-2.
+5.
 ("C:\Users\cpusa\AppData\Local\Programs\MiKTeX 2.9\tex/latex/base\t1cmtt.fd"
 File: t1cmtt.fd 2019/12/16 v2.5j Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `T1/Carlito-LF/m/n' will be
-(Font)              scaled to size 9.0pt on input line 55.
+(Font)              scaled to size 9.0pt on input line 58.
 LaTeX Font Info:    Font shape `T1/Carlito-LF/b/n' will be
-(Font)              scaled to size 9.0pt on input line 55.
+(Font)              scaled to size 9.0pt on input line 58.
 LaTeX Font Info:    Font shape `T1/Carlito-LF/m/n' will be
-(Font)              scaled to size 14.4pt on input line 59.
+(Font)              scaled to size 14.4pt on input line 62.
 LaTeX Font Info:    Font shape `T1/Carlito-LF/b/n' will be
-(Font)              scaled to size 14.4pt on input line 59.
+(Font)              scaled to size 14.4pt on input line 62.
 LaTeX Font Info:    Font shape `T1/Carlito-LF/b/n' will be
-(Font)              scaled to size 12.0pt on input line 69.
-LaTeX Font Info:    Font shape `T1/Carlito-LF/b/n' will be
-(Font)              scaled to size 10.0pt on input line 71.
-Package acronym Info: Label `acro:ICA' newly defined as it shall be overridden
-although it is yet undefined on input line 81.
-Package acronym Info: Label `acro:fMRI' newly defined as it shall be overridden
-
-although it is yet undefined on input line 82.
-Package acronym Info: Label `acro:fALFF' newly defined as it shall be overridde
-n
-although it is yet undefined on input line 83.
-Package acronym Info: Label `acro:IC' newly defined as it shall be overridden
-although it is yet undefined on input line 83.
-Package acronym Info: Label `acro:TC' newly defined as it shall be overridden
-although it is yet undefined on input line 83.
-Package acronym Info: Label `acro:FNC' newly defined as it shall be overridden
-although it is yet undefined on input line 83.
+(Font)              scaled to size 12.0pt on input line 84.
 Package acronym Info: Label `acro:GIFT' newly defined as it shall be overridden
 
-although it is yet undefined on input line 84.
-Package acronym Info: Label `acro:RSN' newly defined as it shall be overridden
+although it is yet undefined on input line 87.
+Package acronym Info: Label `acro:fMRI' newly defined as it shall be overridden
+
+although it is yet undefined on input line 87.
+Package acronym Info: Label `acro:ICA' newly defined as it shall be overridden
 although it is yet undefined on input line 88.
-Package acronym Info: Label `acro:CSF' newly defined as it shall be overridden
-although it is yet undefined on input line 91.
 Package acronym Info: Label `acro:FBIRN' newly defined as it shall be overridde
 n
-although it is yet undefined on input line 98.
+although it is yet undefined on input line 88.
+Package acronym Info: Label `acro:COBRE' newly defined as it shall be overridde
+n
+although it is yet undefined on input line 88.
+Package acronym Info: Label `acro:HCP' newly defined as it shall be overridden
+although it is yet undefined on input line 89.
+Package acronym Info: Label `acro:GSP' newly defined as it shall be overridden
+although it is yet undefined on input line 89.
+Package acronym Info: Label `acro:fALFF' newly defined as it shall be overridde
+n
+although it is yet undefined on input line 95.
+Package acronym Info: Label `acro:IC' newly defined as it shall be overridden
+although it is yet undefined on input line 95.
+Package acronym Info: Label `acro:TC' newly defined as it shall be overridden
+although it is yet undefined on input line 95.
+Package acronym Info: Label `acro:FNC' newly defined as it shall be overridden
+although it is yet undefined on input line 95.
 
 [1{C:/Users/cpusa/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}
 
 ]
+Package acronym Info: Label `acro:RSN' newly defined as it shall be overridden
+although it is yet undefined on input line 100.
+Package acronym Info: Label `acro:CSF' newly defined as it shall be overridden
+although it is yet undefined on input line 106.
 Package acronym Info: Label `acro:BSNIP' newly defined as it shall be overridde
 n
-although it is yet undefined on input line 107.
-Package acronym Info: Label `acro:COBRE' newly defined as it shall be overridde
-n
-although it is yet undefined on input line 107.
-Package acronym Info: Label `acro:AAL' newly defined as it shall be overridden
 although it is yet undefined on input line 113.
- (main.bbl
+Package acronym Info: Label `acro:AAL' newly defined as it shall be overridden
+although it is yet undefined on input line 119.
+LaTeX Font Info:    Font shape `T1/Carlito-LF/b/n' will be
+(Font)              scaled to size 10.0pt on input line 122.
+ [2]
+(main.bbl
 LaTeX Font Info:    Font shape `T1/Carlito-LF/m/it' will be
 (Font)              scaled to size 10.0pt on input line 8.
+
+Underfull \hbox (badness 1253) in paragraph at lines 15--25
+\T1/Carlito-LF/m/n/10 S., Preda, A., Turner, J., Vaidya, J., van Erp, T., and C
+al-houn, V. (2014).  Dy-namic func-tional con-
+ []
+
+
+Underfull \hbox (badness 2653) in paragraph at lines 27--37
+[]\T1/Carlito-LF/m/n/10 Tzourio-Mazoyer, N., Lan-deau, B., Pa-p-athanas-siou, D
+., Criv-ello, F., Etard, O., Del-croix, N., Ma-zoyer,
+ []
+
+
+Underfull \hbox (badness 1540) in paragraph at lines 27--37
+\T1/Carlito-LF/m/n/10 B., and Jo-liot, M. (2002).  Au-to-mated Anatom-i-cal La-
+bel-ing of Ac-ti-va-tions in SPM Us-ing a Macro-
+ []
+
 ("C:\Users\cpusa\AppData\Local\Programs\MiKTeX 2.9\tex/latex/ucs\uni-0.def"
 File: uni-0.def 2013/05/13 UCS: Unicode data U+0000..U+00FF
-)
-[2]) [3]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 148.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 148.
+))
+[3]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 196.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 196.
  (main.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 148.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 148.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 196.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 196.
+Package rerunfilecheck Info: File `main.out' has not changed.
+(rerunfilecheck)             Checksum: FA5CD11409DBA824C0FD4E04B150A073;1091.
 
-
-Package rerunfilecheck Warning: File `main.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `main.out':
-(rerunfilecheck)             Before: 54297469111BE214C79DC8B84CAF1503;801
-(rerunfilecheck)             After:  9D57363EBBFFEEDA915FE9E1EFE82BFA;1021.
 
 LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 148.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 196.
  ) 
 Here is how much of TeX's memory you used:
- 20530 strings out of 481545
- 380367 string characters out of 2913488
- 644927 words of memory out of 3000000
- 35302 multiletter control sequences out of 15000+200000
- 622338 words of font info for 62 fonts, out of 3000000 for 9000
+ 20542 strings out of 481545
+ 380541 string characters out of 2913488
+ 643384 words of memory out of 3000000
+ 35317 multiletter control sequences out of 15000+200000
+ 621925 words of font info for 61 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
  68i,11n,83p,955b,597s stack positions out of 5000i,500n,10000p,200000b,50000s
-pdfTeX warning (dest): name{section.5} has been referenced but does not exist
-, replaced by a fixed one
-
- <C:\Users\cpusa\AppData\Local\MiKTeX\2.9\fonts/pk/ljfour/jknappen/ec/dpi600\ec
-tt1000.pk>{C:/Users/cpusa/AppData/Local/Programs/MiKTeX 2.9/fonts/enc/dvips/car
-lito/crlt_csjzgd.enc} <C:\Users\cpusa\AppData\Local\MiKTeX\2.9\fonts/pk/ljfour/
-jknappen/ec/dpi600\ecrm1000.pk> <C:\Users\cpusa\AppData\Local\MiKTeX\2.9\fonts/
-pk/ljfour/jknappen/ec/dpi600\ectt1200.pk><C:/Users/cpusa/AppData/Local/Programs
-/MiKTeX 2.9/fonts/type1/typoland/carlito/Carlito-Bold.pfb><C:/Users/cpusa/AppDa
-ta/Local/Programs/MiKTeX 2.9/fonts/type1/typoland/carlito/Carlito-Italic.pfb><C
-:/Users/cpusa/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/typoland/carlito/Ca
-rlito.pfb>
-Output written on main.pdf (3 pages, 105041 bytes).
+ <C:\Users\cpusa\AppData\Local\MiKTeX\2.9\fonts/pk/ljfour/jknappen/ec/dpi600\
+ectt1000.pk>{C:/Users/cpusa/AppData/Local/Programs/MiKTeX 2.9/fonts/enc/dvips/c
+arlito/crlt_csjzgd.enc} <C:\Users\cpusa\AppData\Local\MiKTeX\2.9\fonts/pk/ljfou
+r/jknappen/ec/dpi600\ecrm1000.pk> <C:\Users\cpusa\AppData\Local\MiKTeX\2.9\font
+s/pk/ljfour/jknappen/ec/dpi600\ectt1200.pk><C:/Users/cpusa/AppData/Local/Progra
+ms/MiKTeX 2.9/fonts/type1/typoland/carlito/Carlito-Bold.pfb><C:/Users/cpusa/App
+Data/Local/Programs/MiKTeX 2.9/fonts/type1/typoland/carlito/Carlito-Italic.pfb>
+<C:/Users/cpusa/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/typoland/carlito/
+Carlito.pfb>
+Output written on main.pdf (3 pages, 105716 bytes).
 PDF statistics:
- 216 PDF objects out of 1000 (max. 8388607)
- 26 named destinations out of 1000 (max. 500000)
- 213 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 219 PDF objects out of 1000 (max. 8388607)
+ 25 named destinations out of 1000 (max. 500000)
+ 237 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -1,4 +1,4 @@
-\documentclass[letter]{article}
+\documentclass{article}
 
 %% Language and font encodings
 \usepackage[T1]{fontenc}
@@ -22,7 +22,7 @@
 \setlength{\headheight}{41pt}
 
 %% Sets page size and margins
-\usepackage[a4paper,top=3cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+\usepackage[letterpaper,top=3cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
 
 %% Useful packages
 \usepackage{amsmath}
@@ -40,12 +40,15 @@
 \fancyhead[R]{
 }
 \pagestyle{plain}
-\title{Automatic Anatomical \& Functional Labeling of Brain Activity Maps}
-\author[1]{Jane A. Author}
-\author[2,*]{Jim B. Author}
-\affil[1]{Department of Earth; \orcid{0000-0000-0000-0000}}
-\affil[2]{World Institute; \orcid{1111-1111-1111-1111}}
-\affil[*]{Corresponding author: \email{author@university.edu}}
+\title{A Tool for Automatic Anatomical \& Functional Labeling of Brain Activity Maps}
+\author[1,2,*]{Mustafa S. Salman}
+\author[3]{Tor D. Wager}
+\author[1]{Eswar Damaraju}
+\author[1]{Vince D. Calhoun}
+\affil[1]{Tri-Institutional Center for Translational Research in Neuroimaging and Data Science (TReNDS), Georgia State University, Georgia Institute of Technology, and Emory University, Atlanta, GA}
+\affil[2]{School of Electrical \& Computer Engineering, Georgia Institute of Technology, Atlanta, GA}
+\affil[3]{Department of Psychology \& Neuroscience, University of Colorado Boulder, Boulder, CO}
+\affil[*]{Corresponding author: \email{esalman@gatech.edu}}
 \date{}
 
 \begin{document}
@@ -53,43 +56,49 @@
 \thispagestyle{fancy}
 
 \begin{abstract}
-Your abstract.
+
 \end{abstract}
 
 \section{Introduction}
 
 [group ICA]
 
+[FNC]
+
+[artifact detection]
+
 [falff and dyn range]
 
 [REST toolbox masks]
 
-[anatomical atlas]
+[anatomical atlas intro]
 
-[functional atlas]
+[functional atlas intro]
 
 [modularity]
+
+[final]
 
 \section{Methods}
 
 \subsection{Data}
 
-\subsubsection{FBIRN}
-
-\subsubsection{COBRE}
-
-\subsubsection{BSNIP}
-
-\subsubsection{NeuroMark}
+We want to demonstrate that the autolabeller can be used in multiple ways.
+One way is through integration with the \ac{GIFT} toolbox, and also by simply using \ac{fMRI} volume(s) and/or a [mask todo].
+We performed group \ac{ICA} on two different datasets, namely \ac{FBIRN} and \ac{COBRE} to demonstrate the utility of integration with the \ac{GIFT} toolbox.
+In addition, we show how a set of \ac{fMRI} volumes can be labelled using the NeuroMark template, which is based on \ac{HCP} and \ac{GSP} datasets.
 
 \subsection{Group ICA}
 
-The simplest way to use the autolabeller is to run it with the group \ac{ICA} session information file as the input. 
+The simplest way to use the autolabeller is to execute it with the group \ac{ICA} session information file as the input. 
 Prior to that we need to ensure that the group \ac{ICA} on the given \ac{fMRI} dataset has finished successfully, and the \ac{ICA} post-processing step has been completed.
 The \ac{ICA} post-processing step generates the \ac{fALFF} and dynamic range values of the \acp{IC} \acp{TC} as well as the mean static \ac{FNC} matrix across all subjects.
 In the \ac{GIFT} toolbox, generating the HTML report will ensure that the post-processing step has been run.
 
 \subsection{Identifying Resting-State Networks}
+
+We trained a logistic regression model with different \ac{IC} characteristics in order to separate \ac{RSN} from artifacts.
+We obtained these training \acp{IC} and their labels from the \ac{FBIRN} dataset \citep{b1}.
 
 We trained a logistic regression model with different \ac{IC} characteristics or features in order to separate \ac{RSN} from artifacts.
 Five different features were used.
@@ -101,36 +110,69 @@ The other three features are based on the \ac{IC} spatial map characteristics, s
 The output of the model is either 0 or 1, indicating artifact or \ac{RSN} respectively.
 We obtained the logistic regression model parameters by training on the \ac{FBIRN} dataset features, which could be used on any testing dataset to identify those.
 
-\subsubsection{Training Data}
-
-We trained a logistic regression model with different \ac{IC} characteristics in order to separate \ac{RSN} from artifacts.
-We obtained these training \acp{IC} and their labels from the \ac{FBIRN} dataset \cite{b1}.
-
-\subsubsection{Testing Data}
-
 We ran two separate group \ac{ICA} analysis on \ac{BSNIP} and \ac{COBRE} datasets and tested the autolabeller on the resulting \ac{IC} spatial maps.
 
 \subsection{Anatomical Labeling of Spatial Maps}
 
 We determined the anatomical label of a region of activation by correlating the spatial map with known regions in a given anatomical atlas.
 A number of anatomical atlas are available.
-We first used the \ac{AAL} atlas which is probably the most widely used cortical parcellation map in the literature \cite{b2}.
+We first used the \ac{AAL} atlas which is probably the most widely used cortical parcellation map in the literature \citep{b2}.
 As we develop the autolabeller, we will add more choices of anatomical atlases.
+
+\subsubsection{AAL Atlas}
+
+[AAL figure]
+
+[table of regions]
+
+\subsubsection{[Atlas \#2]}
+
+[figure]
+
+[table of regions]
+
+\subsubsection{[Atlas \#3]}
+
+[figure]
+
+[table of regions]
 
 \subsection{Functional Labeling of Spatial Maps}
 
 We determined the functional label of a region of activation by correlating the spatial map with known regions in a given functional parcellation of the brain.
 Several functional parcellations are available.
-We first used the Yeo 2011 functional parcellations (17 networks version) in conjunction with the Buckner functional cerebellar parcellation \cite{b3,b4}.
+We first used the Yeo 2011 functional parcellations (17 networks version) in conjunction with the Buckner functional cerebellar parcellation \citep{b3,b4}.
 As we develop the autolabeller, we will add more choices of functional parcellations.
+
+\subsubsection{Yeo 2011 and Buckner Lab Functional Parcellation}
+
+[AAL figure]
+
+[table of regions]
+
+\subsubsection{Parcellation \#2}
+
+[figure]
+
+[table of regions]
+
+\subsubsection{Parcellation \#3}
+
+[figure]
+
+[table of regions]
 
 \subsection{Reordering of FNC Matrix}
 
 \section{Results}
 
+
+
 \section{Discussion}
 
 [motion estimate considerations]
+
+[why different atlas/parcellations chosen, pros/cons]
 
 \begin{acronym}
     \acro{AAL}{Automated Anatomical Labeling}
@@ -142,6 +184,8 @@ As we develop the autolabeller, we will add more choices of functional parcellat
     \acro{fMRI}{functional magnetic resonance imaging}
     \acro{FNC}{functional network connectivity}
     \acro{GIFT}{group ICA for fMRI toolbox}
+    \acro{GSP}{Genomic Superstruct Project}
+    \acro{HCP}{Human Connectome Project}
     \acro{IC}{independent component}
     \acro{ICA}{independent component analysis}
     \acro{RSN}{resting-state network}
