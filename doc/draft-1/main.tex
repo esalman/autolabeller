@@ -32,7 +32,7 @@
 \usepackage[colorinlistoftodos]{todonotes}
 
 \usepackage[nolist,nohyperlinks]{acronym}
-
+\usepackage{subcaption}
 
 
 %\renewcommand{\headrulewidth}{0pt}
@@ -77,6 +77,8 @@
 
 [modularity]
 
+[compare with noise cloud]
+
 [final]
 
 \section{Methods}
@@ -85,22 +87,23 @@
 
 We want to demonstrate that the autolabeller can be used in multiple ways.
 One way is through integration with the \ac{GIFT} toolbox, and also by simply using \ac{fMRI} volume(s) and/or a [mask todo].
-We performed group \ac{ICA} on two different datasets, namely \ac{FBIRN} and \ac{COBRE} to demonstrate the utility of integration with the \ac{GIFT} toolbox.
-In addition, we show how a set of \ac{fMRI} volumes can be labelled using the NeuroMark template, which is based on \ac{HCP} and \ac{GSP} datasets.
 
-\subsection{Group ICA}
+\subsubsection{Spatial Maps from Group ICA}
 
 The simplest way to use the autolabeller is to execute it with the group \ac{ICA} session information file as the input. 
+We performed group \ac{ICA} on two different datasets, namely \ac{FBIRN} and \ac{COBRE} datasets to demonstrate the utility of integration with the \ac{GIFT} toolbox.
 Prior to that we need to ensure that the group \ac{ICA} on the given \ac{fMRI} dataset has finished successfully, and the \ac{ICA} post-processing step has been completed.
-The \ac{ICA} post-processing step generates the \ac{fALFF} and dynamic range values of the \acp{IC} \acp{TC} as well as the mean static \ac{FNC} matrix across all subjects.
+The \ac{ICA} post-processing step generates the \ac{fALFF} and dynamic range values of the \acp{IC} \acp{TC} as well as the mean static \ac{FNC} matrix across all subjects, all of which are used as input to the autolabeller.
 In the \ac{GIFT} toolbox, generating the HTML report will ensure that the post-processing step has been run.
+
+\subsubsection{Standalone Spatial Maps}
+
+We also show how a set of \ac{fMRI} volumes based on the NeuroMark template (derived from the \ac{HCP} and \ac{GSP} datasets) can be labelled using the autolabeller.
 
 \subsection{Identifying Resting-State Networks}
 
 We trained a logistic regression model with different \ac{IC} characteristics in order to separate \ac{RSN} from artifacts.
 We obtained these training \acp{IC} and their labels from the \ac{FBIRN} dataset \citep{b1}.
-
-We trained a logistic regression model with different \ac{IC} characteristics or features in order to separate \ac{RSN} from artifacts.
 Five different features were used.
 Two of those are based on the \ac{IC} \ac{TC} characteristics, such as \ac{fALFF} and dynamic range.
 The other three features are based on the \ac{IC} spatial map characteristics, such as correlations with edge motion mask, \ac{CSF} mask and white matter mask.
@@ -108,9 +111,8 @@ The other three features are based on the \ac{IC} spatial map characteristics, s
 [the masks come from REST toolbox]
 
 The output of the model is either 0 or 1, indicating artifact or \ac{RSN} respectively.
-We obtained the logistic regression model parameters by training on the \ac{FBIRN} dataset features, which could be used on any testing dataset to identify those.
-
-We ran two separate group \ac{ICA} analysis on \ac{BSNIP} and \ac{COBRE} datasets and tested the autolabeller on the resulting \ac{IC} spatial maps.
+We obtained the logistic regression model parameters, which could be used on any testing dataset to identify those.
+We ran a separate group \ac{ICA} analysis on the \ac{COBRE} dataset and tested the autolabeller on the resulting \ac{IC} spatial maps.
 
 \subsection{Anatomical Labeling of Spatial Maps}
 
@@ -137,6 +139,7 @@ As we develop the autolabeller, we will add more choices of anatomical atlases.
 
 [table of regions]
 
+
 \subsection{Functional Labeling of Spatial Maps}
 
 We determined the functional label of a region of activation by correlating the spatial map with known regions in a given functional parcellation of the brain.
@@ -149,6 +152,29 @@ As we develop the autolabeller, we will add more choices of functional parcellat
 [AAL figure]
 
 [table of regions]
+
+\begin{figure}[ht]
+    \begin{subfigure}[t]{0.49\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{../../results/fbirn/fnc_unsorted.pdf}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.49\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{../../results/fbirn/fnc_reordered.pdf}
+    \end{subfigure}
+    \medskip
+    \begin{subfigure}[t]{0.49\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{../../results/cobre/fnc_unsorted.pdf}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.49\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{../../results/cobre/fnc_reordered.pdf}
+    \end{subfigure}
+    \caption{\label{fig:frog}Unsorted vs. automatically reordered \ac{FNC} matrices}
+\end{figure}
 
 \subsubsection{Parcellation \#2}
 
@@ -167,10 +193,11 @@ As we develop the autolabeller, we will add more choices of functional parcellat
 \section{Results}
 
 
-
 \section{Discussion}
 
 [motion estimate considerations]
+
+[why some IC are mislabelled, eg. fbirn IC 12 is classified as default mode by Bucknerlab even though correlated with calcerine]
 
 [why different atlas/parcellations chosen, pros/cons]
 
