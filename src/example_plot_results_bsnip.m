@@ -11,7 +11,8 @@ addpath( '/data/mialab/users/salman/projects/funfc/src/' )
 
 outpath = '../results/bsnip/';
 param_file = '/data/mialab/users/salman/projects/BSNIP/2016-11-30/analysis_spm12/ica_results/bsnip8_ica_parameter_info.mat';
-mask_file = '/data/mialab/users/salman/projects/BSNIP/2016-11-30/analysis_spm12/ica_results/bsnip8Mask.img';
+structFile = '../bin/MCIv4/ch2better_whitebg_aligned2EPI_V3.nii';
+fnc_file_ext = '.png';
 
 plot_sm = 0;
 plot_fnc = 1;
@@ -28,6 +29,7 @@ num_IC = sesInfo.numComp;
 if plot_sm
     % write output spatial maps with labels
     agg_map_path = fullfile(sesInfo.outputDir, [sesInfo.aggregate_components_an3_file '.nii']);
+    mask_file = fullfile(sesInfo.outputDir, [sesInfo.userInput.prefix 'Mask.img']);
     sm_dat = fmri_data( agg_map_path, mask_file, 'noverbose' );
     n_vols = size( sm_dat.dat, 2 );
 
@@ -45,13 +47,13 @@ if plot_sm
             title_func = [strrep(func_labels{idx,2},'_',' ') ' (' num2str(func_labels{idx,3}) ')']; 
         end
         
-        title_ = ['RSN: ' title_rsn '; ANAT: ' title_anat '; FUNC: ' title_func];
+        title_ = ['RSN: ' title_rsn ';ANAT: ' title_anat ';FUNC: ' title_func];
         
         params = struct( ...
             'disable', 0, ...
             'data', sm_dat.dat(:, jj), ...
             'sesInfo', sesInfo, ...
-            'structFile', '../bin/MCIv4/ch2better_aligned2EPI_resampled.nii', ...
+            'structFile', structFile, ...
             'title', title_, ...
             'savefig', 1, ...
             'outpath', fullfile( outpath, 'sm_fig' ), ...
@@ -67,12 +69,14 @@ if plot_fnc
     sorted_idx = readmatrix( fullfile( outpath, 'sorted_IC_idx.csv' ) );
     max_fnc = max( abs( fnc(:) ) );
     % load module labels
-    [mod_names, t2, aff] = unique( func_labels(:,2) );
+    [mod_names, t2, aff] = unique( func_labels(:,2), 'stable' );
     mod_ = accumarray(aff, 1);
     % plot
     figure
     [~,~,C] = my_icatb_plot_FNC(fnc, [-max_fnc max_fnc], cell(1, num_IC), sorted_idx, gcf, 'Correlation', [], mod_, mod_names, 1);
-    saveas(gcf, fullfile(outpath, 'fnc_reordered.png'))
+    title('BSNIP dataset reordered FNC matrix')
+    set(gcf, 'color', 'w')
+    export_fig(fullfile(outpath, ['fnc_reordered' fnc_file_ext]), '-r300')
 
     % plot unsorted FNC for comparison
     post_process = load( fullfile(sesInfo.outputDir, [sesInfo.userInput.prefix '_postprocess_results.mat']) );
@@ -80,14 +84,16 @@ if plot_fnc
 
     func_labels_us = sortrows( func_labels(:,1:2), 1 );
     [t1, idx_dumb] = sortrows( func_labels_us, 2 );
-    [mod_names, t2, aff] = unique( t1(:,2) );
+    [mod_names, t2, aff] = unique( t1(:,2), 'stable' );
     mod_ = accumarray(aff, 1);
     sorted_idx = cell2mat( func_labels_us(idx_dumb,1) );
     fnc_unsorted = fnc_unsorted( sorted_idx, sorted_idx );
 
     figure
     [~,~,C] = my_icatb_plot_FNC(fnc_unsorted, [-max_fnc max_fnc], cell(1, num_IC), sorted_idx, gcf, 'Correlation', [], mod_, mod_names, 1);
-    saveas(gcf, fullfile(outpath, 'fnc_unsorted.png'))
+    title('BSNIP dataset unsorted FNC matrix')
+    set(gcf, 'color', 'w')
+    export_fig(fullfile(outpath, ['fnc_unsorted' fnc_file_ext]), '-r300')
 end
 
 close all

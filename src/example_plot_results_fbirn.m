@@ -11,6 +11,10 @@ addpath( '/data/mialab/users/salman/projects/funfc/src/' )
 
 outpath = '../results/fbirn/';
 param_file = '/data/mialab/users/salman/projects/fBIRN/current/data/ICAresults_C100_fbirn/fbirnp3_rest_ica_parameter_info.mat';
+structFile = '../bin/MCIv4/ch2better_whitebg_aligned2EPI_V3.nii';
+
+plot_sm = 0;
+plot_fnc = 1;
 
 % load outputs
 rsn_labels = readmatrix( fullfile( outpath, 'rsn_labels.csv' ) );
@@ -21,52 +25,77 @@ sesInfo = load(param_file);
 sesInfo = sesInfo.sesInfo;
 num_IC = sesInfo.numComp;
 
-% % write output spatial maps with labels
-% agg_map_path = fullfile(sesInfo.outputDir, [sesInfo.aggregate_components_an3_file '.nii']);
-% mask_file = sesInfo.userInput.maskFile;
-% sm_dat = fmri_data( agg_map_path, mask_file, 'noverbose' );
-% n_vols = size( sm_dat.dat, 2 );
+if plot_sm
+    % write output spatial maps with labels
+    agg_map_path = fullfile(sesInfo.outputDir, [sesInfo.aggregate_components_an3_file '.nii']);
+    mask_file = fullfile(sesInfo.outputDir, [sesInfo.userInput.prefix 'Mask.img']);
+    sm_dat = fmri_data( agg_map_path, mask_file, 'noverbose' );
+    n_vols = size( sm_dat.dat, 2 );
 
-% for jj = 1:n_vols
-%     disp( ['plotting IC ' num2str(jj)] )
-%     % create title
-%     title_rsn = 'NO';
-%     title_anat = '';
-%     title_func = '';
-%     idx = find( [anat_labels{:,1}] == jj );
-%     if ( rsn_labels(jj) == 1 )
-%         title_rsn = 'YES'; 
-%         % assume top 3 correlations 
-%         title_anat = [strrep(anat_labels{idx,2},'_',' ') ' (' num2str(anat_labels{idx,3}) ')']; 
-%         title_func = [strrep(func_labels{idx,2},'_',' ') ' (' num2str(func_labels{idx,3}) ')']; 
-%     end
-    
-%     title_ = ['RSN: ' title_rsn '; ANAT: ' title_anat '; FUNC: ' title_func];
-    
-%     params = struct( ...
-%         'disable', 0, ...
-%         'data', sm_dat.dat(:, jj), ...
-%         'sesInfo', sesInfo, ...
-%         'structFile', '../bin/MCIv4/ch2better_aligned2EPI_resampled.nii', ...
-%         'title', title_, ...
-%         'savefig', 1, ...
-%         'outpath', fullfile( outpath, 'sm_fig' ), ...
-%         'outname', ['fig' num2str(jj)] );
-%     funfc_mciv4_save(params);
-% end
+    for jj = 1:n_vols
+        disp( ['plotting IC ' num2str(jj)] )
+        % create title
+        title_rsn = 'NO';
+        title_anat = '';
+        title_func = '';
+        idx = find( [anat_labels{:,1}] == jj );
+        if ( rsn_labels(jj) == 1 )
+            title_rsn = 'YES'; 
+            % assume top 3 correlations 
+            title_anat = [strrep(anat_labels{idx,2},'_',' ') ' (' num2str(anat_labels{idx,3}) ')']; 
+            title_func = [strrep(func_labels{idx,2},'_',' ') ' (' num2str(func_labels{idx,3}) ')']; 
+        end
+        
+        title_ = ['RSN: ' title_rsn ';ANAT: ' title_anat ';FUNC: ' title_func];
+        
+        params = struct( ...
+            'disable', 0, ...
+            'data', sm_dat.dat(:, jj), ...
+            'sesInfo', sesInfo, ...
+            'structFile', structFile, ...
+            'title', title_, ...
+            'savefig', 1, ...
+            'outpath', fullfile( outpath, 'sm_fig' ), ...
+            'outname', ['fig' num2str(jj)] );
+        funfc_mciv4_save(params);
+    end
+end
 
-% plot FNC
-% read FNC
-fnc = readmatrix( fullfile( outpath, 'sorted_fnc.csv' ) );
-sorted_idx = readmatrix( fullfile( outpath, 'sorted_IC_idx.csv' ) );
-max_fnc = max( abs( fnc(:) ) );
-% load module labels
-[mod_names, t2, aff] = unique( func_labels(:,2) );
-mod_ = accumarray(aff, 1);
-% plot
-figure
-[~,~,C] = my_icatb_plot_FNC(fnc, [-max_fnc max_fnc], cell(1, num_IC), sorted_idx, gcf, 'Correlation', [], mod_, mod_names, 1);
-saveas(gcf, fullfile(outpath, 'fnc_reordered.png'))
+if plot_fnc
+    % plot FNC
+    % read FNC
+    fnc = readmatrix( fullfile( outpath, 'sorted_fnc.csv' ) );
+    sorted_idx = readmatrix( fullfile( outpath, 'sorted_IC_idx.csv' ) );
+    max_fnc = max( abs( fnc(:) ) );
+    % load module labels
+    [mod_names, t2, aff] = unique( func_labels(:,2), 'stable' );
+    mod_ = accumarray(aff, 1);
+    % plot
+    figure
+    [~,~,C] = my_icatb_plot_FNC(fnc, [-max_fnc max_fnc], cell(1, num_IC), sorted_idx, gcf, 'Correlation', [], mod_, mod_names, 1);
+    title('(B) FBIRN dataset reordered FNC matrix')
+    set(gcf, 'color', 'w')
+    export_fig(fullfile(outpath, 'fnc_reordered.png'), '-r300')
+    export_fig(fullfile(outpath, 'fnc_reordered.pdf'), '-r300')
+
+    % plot unsorted FNC for comparison
+    post_process = load( fullfile(sesInfo.outputDir, [sesInfo.userInput.prefix '_postprocess_results.mat']) );
+    fnc_unsorted = squeeze( mean( post_process.fnc_corrs_all ) );
+
+    func_labels_us = sortrows( func_labels(:,1:2), 1 );
+    [t1, idx_dumb] = sortrows( func_labels_us, 2 );
+    [mod_names, t2, aff] = unique( t1(:,2), 'stable' );
+    mod_ = accumarray(aff, 1);
+    sorted_idx = cell2mat( func_labels_us(idx_dumb,1) );
+    fnc_unsorted = fnc_unsorted( sorted_idx, sorted_idx );
+
+    figure
+    [~,~,C] = my_icatb_plot_FNC(fnc_unsorted, [-max_fnc max_fnc], cell(1, num_IC), sorted_idx, gcf, 'Correlation', [], mod_, mod_names, 1);
+    title('(A) FBIRN dataset unsorted FNC matrix')
+    set(gcf, 'color', 'w')
+    export_fig(fullfile(outpath, 'fnc_unsorted.png'), '-r300')
+    export_fig(fullfile(outpath, 'fnc_unsorted.pdf'), '-r300')
+end
 
 close all
 
