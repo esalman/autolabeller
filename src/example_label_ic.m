@@ -2,8 +2,8 @@ clear all
 tStart = tic;
 
 % add paths
-addpath( genpath( '/trdapps/linux-x86_64/matlab/toolboxes/GroupICATv4.0b/' ) )
-addpath( genpath( '/trdapps/linux-x86_64/matlab/toolboxes/spm12/' ) )
+addpath( genpath( '../bin/GroupICATv4.0b/' ) )
+addpath( genpath( '../bin/spm12/' ) )
 addpath( genpath( '../bin/CanlabCore/' ) )
 addpath('../bin/2019_03_03_BCT')
 
