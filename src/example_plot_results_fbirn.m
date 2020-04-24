@@ -6,7 +6,7 @@ addpath( genpath( '/trdapps/linux-x86_64/matlab/toolboxes/spm12/' ) )
 addpath( genpath( '../bin/MCIv4/' ) )
 addpath( genpath( '../bin/CanlabCore/' ) )
 addpath( genpath( '../bin/export_fig' ) )
-addpath( '../bin/' )
+addpath( '../bin/my_icatb_plot_FNC.m' )
 addpath( '/data/mialab/users/salman/projects/funfc/src/' )
 
 outpath = '../results/fbirn/';

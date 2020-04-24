@@ -3,7 +3,8 @@
 %   params.param_file: GICA session parameter file. Make sure to post process GICA results by running HTML report
 %   params.sm_path: if you want to label a simple nifti volume instead of GICA result, specify this instead
 %   params.outpath: output folder
-%   params.n_corr: top X correlations with knowmn anatomical/functional regions
+%   params.n_corr: top X correlations with knowmn anatomical/functional regions. Recommended value is 3
+%   params.fit_method: method used to fit training data for artifact detection. Recommended value is 'mnr' (multinomial logistic regression)
 % Outputs: the following files are written into params.outpath folder:
 %   rsn_labels.csv: RSN labels vector (0=artifact, 1=RSN)
 %   anatomical_labels.csv: AAL anatomical region with highest correlations
