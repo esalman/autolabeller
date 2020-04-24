@@ -2,9 +2,11 @@
 % output: 47x2 fBIRN ICA fALFF and dynamic ranges; 100x1 fBIRN RSN label vector
 function [feat_, labels_] = load_fbirn_true_labels()
     % input ICA parameter file
-    param_file = '/data/mialab/users/salman/projects/fBIRN/current/data/ICAresults_C100_fbirn/fbirnp3_rest_ica_parameter_info.mat';
+    param_file = '../data/fBIRN/fbirnp3_rest_ica_parameter_info.mat';
     ic_meta_path = '../data/fBIRN/fBIRN_rsn.csv';
     structFile = '../bin/MCIv4/ch2better_aligned2EPI_resampled.nii';
+    post_process_path = '../data/fBIRN/fbirnp3_rest_postprocess_results.mat';
+    sm_path = '../data/fBIRN/fbirnp3_rest_agg__component_ica_.nii';
 
     % load ICA session info
     sesInfo = load(param_file);
@@ -15,14 +17,13 @@ function [feat_, labels_] = load_fbirn_true_labels()
     numComp = sesInfo.numComp;
 
     % load ICA postptocess file
-    post_process = load( fullfile(sesInfo.outputDir, [sesInfo.userInput.prefix '_postprocess_results.mat']) );
+    post_process = load( post_process_path );
 
     %% correlation w/ brain masks
     % resample everything to the same space
     struct_dat = fmri_data(structFile, [], 'noverbose');
 
     % load IC aggregate map
-    sm_path = fullfile(sesInfo.outputDir, [sesInfo.aggregate_components_an3_file '.nii']);
     sm_dat = fmri_data( sm_path, [], 'noverbose' );
     sm_dat = resample_space( sm_dat, struct_dat );
     

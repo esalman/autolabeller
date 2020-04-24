@@ -52,7 +52,7 @@ function mdl_ = get_trained_model( feat_, labels_, fit_method )
     switch fit_method
         case 'mnr'
             disp('train using mnr')
-            mdl_ = mnrfit( feat_, categorical( labels_ ) )
+            mdl_ = mnrfit( feat_, categorical( labels_ ) );
         case 'svm'
             disp('train using svm')
             mdl_ = fitcsvm( feat_, categorical( labels_ ) );

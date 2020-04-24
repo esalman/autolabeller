@@ -7,14 +7,14 @@ addpath( genpath( '/trdapps/linux-x86_64/matlab/toolboxes/spm12/' ) )
 addpath( genpath( '../bin/CanlabCore/' ) )
 addpath('../bin/2019_03_03_BCT')
 
-% fbirn GICA example
-clear params;
-params.param_file = '/data/mialab/users/salman/projects/fBIRN/current/data/ICAresults_C100_fbirn/fbirnp3_rest_ica_parameter_info.mat';
-params.outpath = '../results/fbirn/';
-params.n_corr = 3;
-params.fit_method = 'mnr';
-disp( 'FBIRN run the autolabeller' )
-label_auto_main( params );
+% % fbirn GICA example
+% clear params;
+% params.param_file = '/data/mialab/users/salman/projects/fBIRN/current/data/ICAresults_C100_fbirn/fbirnp3_rest_ica_parameter_info.mat';
+% params.outpath = '../results/fbirn/';
+% params.n_corr = 3;
+% params.fit_method = 'mnr';
+% disp( 'FBIRN run the autolabeller' )
+% label_auto_main( params );
 
 % neuromark spatial map example
 clear params;
