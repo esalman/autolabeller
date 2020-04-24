@@ -19,6 +19,8 @@ To use the optional visualization scripts (`src/example_plot_results_*.m`), some
 
 ## Using the autolabeller
 
+Example code can be found in `src/example_label_ic.m`. Note that it requires around 4GB of RAM to run. For visualization, `src/example_plot_results_fbirn.m` can be used as a starting point.
+
     % add paths
     % GIFT toolbox
     addpath( genpath( '/trdapps/linux-x86_64/matlab/toolboxes/GroupICATv4.0b/' ) )
