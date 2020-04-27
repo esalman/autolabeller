@@ -1,12 +1,12 @@
 % 
 % 
 % 
-function func_pred = label_anatomical( sm_file, vols_, n )
+function func_pred = label_anatomical( sm_file, networks, n )
     % for using fmri_data class
     addpath( genpath( '../bin/CanlabCore' ) )
 
-    bucknerlab_path = '../data/Functional_networks/Bucknerlab_286_17_networks_plus_anatomy/resampled_mask_Buckner_r286.nii';
-    bucknerlab_labels_path = '../data/Functional_networks/Bucknerlab_286_17_networks_plus_anatomy/idx_286_for_Buckner17.mat';
+    bucknerlab_path = which( 'resampled_mask_Buckner_r286.nii' );
+    bucknerlab_labels_path = which( 'idx_286_for_Buckner17.mat' );
 
     % load SPM anatomical labels
     bucknerlab_labels = load( bucknerlab_labels_path );
@@ -17,12 +17,8 @@ function func_pred = label_anatomical( sm_file, vols_, n )
     sm_dat = fmri_data( sm_file, [], 'noverbose' );
     bucknerlab_dat = fmri_data( bucknerlab_path, [], 'noverbose' );
     sm_dat = resample_space( sm_dat, bucknerlab_dat );
+    n_vols = size(sm_dat.dat, 2);
 
-    if isempty( vols_ )
-        vols_ = 1:size(sm_dat.dat, 2);
-    end
-    sm_dat.dat = sm_dat.dat(:, vols_);
-    
     disp('masking Bucknerlab atlas')
     s_ = [length(bucknerlab_dat.dat) max( bucknerlab_dat.dat )];
     bucknerlab_V_4D = zeros(s_);
@@ -32,19 +28,30 @@ function func_pred = label_anatomical( sm_file, vols_, n )
     end
 
     disp('computing correlation')
-    func_pred = cell( length( vols_ ), 1+2*n );
+    func_pred = cell( n_vols, 2*(n+1) );
     corrs_ = corr( sm_dat.dat, bucknerlab_V_4D );
 
-    for jj = 1:length( vols_ )
-        func_pred{jj, 1} = vols_(jj);
+    % network flags
+    func_pred(:, 2) = networks;
+    
+    headers = {'volume', 'network'};
+    header_flag = 0;
+    for jj = 1:n_vols
+        func_pred{jj, 1} = jj;
         [vv, ii] = maxk( corrs_(jj, :), n );
-        t1 = 2;
+        t1 = 3;
         for kk = 1:n
             func_pred{jj, t1} = bucknerlab_get_label( ii(kk), map_, rnames );
             func_pred{jj, t1+1} = vv(kk);
             t1 = t1 + 2;
+            if ~header_flag
+                headers = [headers, {['region_' num2str(kk)] ['corr_' num2str(kk)]}];
+            end
         end
+        header_flag = 1;
     end
+    
+    func_pred = [headers; func_pred];
 
     disp('done predicting functional labels')
 

@@ -6,15 +6,24 @@
 %   params.n_corr: top X correlations with knowmn anatomical/functional regions. Recommended value is 3
 %   params.fit_method: method used to fit training data for artifact detection. Recommended value is 'mnr' (multinomial logistic regression)
 % Outputs: the following files are written into params.outpath folder:
-%   rsn_labels.csv: RSN labels vector (0=artifact, 1=RSN)
+%   rsn_labels.csv: network labels vector (0=artifact, 1=RSN) and probability that the component/spatial map is a network
 %   anatomical_labels.csv: AAL anatomical region with highest correlations
 %   functional_labels.csv: Buckner functional parcellations with highest correlations
 %   sorted_IC_idx.csv: sorted IC index
 %   sorted_fnc.csv: sorted FNC matrix
 
 function label_auto_main( params )
+    % add paths
+    src_dir = fileparts( which('label_auto_main') );
+    data_dir = fullfile( src_dir, '..', 'data' );
+    bin_dir = fullfile( src_dir, '..', 'bin' );
+    addpath( genpath( data_dir ) )
+    addpath( genpath( bin_dir ) )
+
     % create output directory
-    mkdir( fullfile( params.outpath, 'sm_fig', 'nii' ) )
+    if ~exist( params.outpath, 'dir' )
+        mkdir( fullfile( params.outpath ) )
+    end
 
     % todo sanitize input
 
@@ -34,10 +43,10 @@ function label_auto_main( params )
     end
 
     % predict RSN labels (0=artifact, 1=RSN)
-    rsn_labels = label_rsn( sesInfo, sm_path, params.fit_method );
+    rsn_labels = label_network( sesInfo, sm_path, params.fit_method );
 
     % select rsn volumes to label as anatomical/functional
-    rsn_idx = find( rsn_labels == 1 );
+    rsn_idx = rsn_labels(2:end,1);
 
     % predict anatomical labels
     anat_labels = label_anatomical( sm_path, rsn_idx, params.n_corr);
@@ -49,19 +58,19 @@ function label_auto_main( params )
     if flag_sort_fnc
         % load unsorted FNC
         fnc = squeeze( mean( post_process.fnc_corrs_all ) );
-        [sorted_idx, rsn_fnc, order_] = sort_fnc( fnc, func_labels(:,1:2) );
+        [sorted_idx, rsn_fnc, order_] = sort_fnc( fnc, func_labels(2:end,1:3) );
 
         % sort the other labels
-        anat_labels = anat_labels( order_, : );
-        func_labels = func_labels( order_, : );
+        anat_labels(2:end, :) = anat_labels( order_+1, : );
+        func_labels(2:end, :) = func_labels( order_+1, : );
     end
 
     % write output
-    writematrix( rsn_labels, fullfile(params.outpath, 'rsn_labels.csv') )
+    writecell( rsn_labels, fullfile(params.outpath, 'network_labels.csv') )
     writecell( anat_labels, fullfile(params.outpath, 'anatomical_labels.csv') )
     writecell( func_labels, fullfile(params.outpath, 'functional_labels.csv') )
     if flag_sort_fnc
-        writematrix( sorted_idx, fullfile(params.outpath, 'sorted_IC_idx.csv') )
+        writematrix( sorted_idx, fullfile(params.outpath, 'sorted_network_idx.csv') )
         writematrix( rsn_fnc, fullfile(params.outpath, 'sorted_fnc.csv') )
     end
 
