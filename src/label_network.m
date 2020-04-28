@@ -1,7 +1,7 @@
 % input: fALFF and dynamic range of ICA timecourses collected from ICA session info
-% output: 1 (RSN) or 0 (artifact)
-function rsn_pred = label_network( sesInfo, sm_path, fit_method )
-    disp('predicting RSN')
+% output: 1 (network) or 0 (artifact)
+function network_pred = label_network( sesInfo, sm_path, fit_method )
+    disp('predicting networks')
 
     % training
     % load fbirn features
@@ -14,12 +14,12 @@ function rsn_pred = label_network( sesInfo, sm_path, fit_method )
     mask_corrs = get_mask_corrs( sm_path );
     feat_test = get_testing_features( mask_corrs, sesInfo );
 
-    rsn_pred = fit_test_data( feat_test, model_, fit_method );
-    rsn_pred = [rsn_pred, feat_test];
-    rsn_pred = num2cell( rsn_pred );
-    rsn_pred = [headers; rsn_pred];
+    network_pred = fit_test_data( feat_test, model_, fit_method );
+    network_pred = [network_pred, feat_test];
+    network_pred = num2cell( network_pred );
+    network_pred = [headers; network_pred];
 
-    disp('done predicting RSN')
+    disp('done predicting network')
 end
 
 function [feat_, headers] = get_training_features( feat_fbirn, sesInfo )
@@ -64,18 +64,18 @@ function mdl_ = get_trained_model( feat_, labels_, fit_method )
     end
 end
 
-function rsn_pred = fit_test_data( feat_, model_, fit_method )
+function network_pred = fit_test_data( feat_, model_, fit_method )
     feat_ = zscore( feat_ );
     switch fit_method
         case 'mnr'
             disp('predict using mnr')
             p_hat = mnrval(model_, feat_);
-            rsn_pred = p_hat(:,1) < p_hat(:,2);
-            rsn_pred = [rsn_pred, p_hat(:,2)];
+            network_pred = p_hat(:,1) < p_hat(:,2);
+            network_pred = [network_pred, p_hat(:,2)];
         case 'svm'
             disp('predict using svm')
-            rsn_pred = predict(model_, feat_);
-            rsn_pred = double( flip( rsn_pred ) ) - 1;
+            network_pred = predict(model_, feat_);
+            network_pred = double( flip( network_pred ) ) - 1;
     end
 end
 

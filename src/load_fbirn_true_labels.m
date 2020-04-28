@@ -50,7 +50,7 @@ function [feat_, labels_] = load_fbirn_true_labels()
         out_( ic_meta{ii, 'IC'} ) = 1;
     end
         
-    % rsn labels, 0=noise, 1=RSN
+    % network labels, 0=noise, 1=network
     labels_ = logical( out_ );
 
     
