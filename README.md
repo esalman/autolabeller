@@ -1,6 +1,6 @@
 # Autolabeller
 
-This tool can automatically generate anatomical and functional labels of spatial maps of brain activity.
+This tool can automatically generate anatomical and functional labels of spatial maps of brain activity, and a reordered functional network connectivity matrix.
 
 ## Prerequisites
 
@@ -13,19 +13,19 @@ Autolabeller is written in Matlab™ and requires several Matlab toolboxes to ru
 
 ## Using the autolabeller
 
-Example code can be found in `example_label_ic.m`. Note that it requires around 4GB of RAM to run.
+Example code can be found in `src/example_label_ic.m`. Note that it requires around 4GB of RAM to run.
 
     % add requirements to path
-    addpath( genpath( './bin/GroupICATv4.0b/' ) )      % GIFT toolbox
-    addpath( genpath( './bin/CanlabCore/CanlabCore' ) )       % Canlab toolbox
-    addpath( './bin/spm12/' )      % SPM12 toolbox
-    addpath('./bin/2019_03_03_BCT')       % Brain connectivity toolbox
-    addpath('./src/')       % add the autolabeller src folder only
+    addpath( genpath( '../bin/GroupICATv4.0b/' ) )      % GIFT toolbox
+    addpath( genpath( '../bin/CanlabCore' ) )       % Canlab toolbox
+    addpath( '../bin/spm12/' )      % SPM12 toolbox
+    addpath( '../bin/2019_03_03_BCT' )       % Brain connectivity toolbox
+    addpath( '../bin/autolabeller/' )       % add the autolabeller src folder only
 
     % GICA example with fbirn dataset
     clear params;
-    params.param_file = './data/ICAresults_C100_fbirn/fbirnp3_rest_ica_parameter_info.mat';
-    params.outpath = './results/fbirn/';
+    params.param_file = '/data/mialab/users/salman/projects/fBIRN/current/data/ICAresults_C100_fbirn/fbirnp3_rest_ica_parameter_info.mat';
+    params.outpath = '../results/fbirn/';
     params.n_corr = 3;
     params.fit_method = 'mnr';
     disp( 'Running the autolabeller on FBIRN dataset' )
@@ -33,8 +33,8 @@ Example code can be found in `example_label_ic.m`. Note that it requires around 
 
     % Spatial map example with neuromark template
     clear params;
-    params.sm_path = './data/NetworkTemplate/NetworkTemplate_High_VarNor.nii';
-    params.outpath = './results/neuromark/';
+    params.sm_path = '/data/mialab/competition2019/NetworkTemplate/NetworkTemplate_High_VarNor.nii';
+    params.outpath = '../results/neuromark/';
     params.n_corr = 3;
     params.fit_method = 'mnr';
     disp( 'Running the autolabeller on NeuroMark dataset' )
@@ -42,7 +42,7 @@ Example code can be found in `example_label_ic.m`. Note that it requires around 
 
 ### Visualization
 
-An optional FNC visualization script is provided (`example_plot_results.m`).
+An optional FNC visualization script is provided (`src/example_plot_fnc.m`).
 
 ## Result
 

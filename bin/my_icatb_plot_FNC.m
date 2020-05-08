@@ -77,7 +77,7 @@ uistack(c(2*(length(RSN_I)+1)-cMOD), 'top')
 A = sh;
 I = c(find(strcmp(get(c, 'Type'),'image')));
 C = colorbar;
-ylabel(C, T, 'fontweight', 'bold', 'fontsize', 12)
+ylabel(C, T, 'fontweight', 'normal', 'fontsize', 12)
 axis image; colormap jet
 
 try
@@ -106,9 +106,9 @@ if exist('MOD_NAMES', 'var') && ~isempty(MOD_NAMES)
     ypos = c(end) + 1;
     xpos = b(end) + 1;
     th=text(repmat(0,length(b),1), 1:length(b), MOD_NAMES(1:length(RSN_I)),'HorizontalAlignment','right','rotation',0, ...
-        'color', foregroundcolor, 'fontweight', 'bold', 'fontsize', 11);
-    th=text(1:length(c),repmat(xpos,length(c),1), MOD_NAMES(1:length(RSN_I)),'HorizontalAlignment','right','rotation',90, ...,
-        'color', foregroundcolor, 'fontweight', 'bold', 'fontsize', 11);
+        'color', foregroundcolor, 'fontweight', 'normal', 'fontsize', 11);
+    % th=text(1:length(c),repmat(xpos,length(c),1), MOD_NAMES(1:length(RSN_I)),'HorizontalAlignment','right','rotation',90, ...,
+    %     'color', foregroundcolor, 'fontweight', 'normal', 'fontsize', 11);
 end
 
 
