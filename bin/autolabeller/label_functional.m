@@ -32,7 +32,7 @@ function func_pred = label_anatomical( sm_file, networks, n )
     corrs_ = corr( sm_dat.dat, bucknerlab_V_4D );
 
     % network flags
-    func_pred(:, 2) = networks;
+    func_pred(:, 2) = num2cell( networks );
     
     headers = {'volume', 'network'};
     header_flag = 0;

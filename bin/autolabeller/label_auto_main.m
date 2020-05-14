@@ -25,8 +25,7 @@ function label_auto_main( params )
         mkdir( fullfile( params.outpath, 'nc' ) )
     end
 
-    % todo sanitize input
-
+    % sanitize input
     if isfield( params, 'param_file' ) && ~isempty( params.param_file )
         % load ICA session info
         sesInfo = load( params.param_file );
@@ -42,18 +41,23 @@ function label_auto_main( params )
         flag_sort_fnc = 0;
     end
 
-    % predict network labels (0=artifact, 1=network)
-    network_labels = label_network( sesInfo, sm_path, params.fit_method );
-    % network_labels = label_network_nc( fullfile( params.outpath, 'nc' ), sesInfo, sm_path );
+    if ~isfield( params, 'noisecloud_opts' )
+        params.noisecloud_opts = [];
+    end
 
-    % select network volumes to label as anatomical/functional
-    network_idx = network_labels(2:end,1);
+    if ~isfield( params, 'prefix' )
+        params.prefix = '';
+    end
+
+    % predict network labels (0=artifact, 1=network)
+    % network_labels = label_network( sesInfo, sm_path, params.fit_method );
+    network_labels = label_network_nc( fullfile( params.outpath, 'nc' ), sesInfo, sm_path );
 
     % predict anatomical labels
-    anat_labels = label_anatomical( sm_path, network_idx, params.n_corr);
+    anat_labels = label_anatomical( sm_path, network_labels, params.n_corr);
 
     % predict functional labels
-    func_labels = label_functional( sm_path, network_idx, params.n_corr);
+    func_labels = label_functional( sm_path, network_labels, params.n_corr);
 
     % sort FNC
     if flag_sort_fnc
@@ -67,12 +71,12 @@ function label_auto_main( params )
     end
 
     % write output
-    writecell( network_labels, fullfile(params.outpath, 'network_labels.csv') )
-    writecell( anat_labels, fullfile(params.outpath, 'anatomical_labels.csv') )
-    writecell( func_labels, fullfile(params.outpath, 'functional_labels.csv') )
+    writematrix( network_labels, fullfile(params.outpath, network_labels.csv) )
+    writecell( anat_labels, fullfile(params.outpath, anatomical_labels.csv) )
+    writecell( func_labels, fullfile(params.outpath, functional_labels.csv) )
     if flag_sort_fnc
-        writematrix( sorted_idx, fullfile(params.outpath, 'sorted_network_idx.csv') )
-        writematrix( network_fnc, fullfile(params.outpath, 'sorted_fnc.csv') )
+        writematrix( sorted_idx, fullfile(params.outpath, sorted_network_idx.csv) )
+        writematrix( network_fnc, fullfile(params.outpath, sorted_fnc.csv) )
     end
 
     

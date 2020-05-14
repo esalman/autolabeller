@@ -28,7 +28,7 @@ function anat_pred = label_anatomical( sm_file, networks, n )
     corrs_ = corr( sm_dat.dat, aal_V_4D );
     
     % network flags
-    anat_pred(:, 2) = networks;
+    anat_pred(:, 2) = num2cell( networks );
 
     headers = {'volume', 'network'};
     header_flag = 0;
