@@ -9,7 +9,6 @@ param_file = '/data/mialab/users/salman/projects/fBIRN/current/data/ICAresults_C
 structFile = '../bin/MCIv4/ch2better_aligned2EPI_resampled.nii';
 
 % load outputs
-network_labels = readmatrix( fullfile( outpath, 'network_labels.csv' ) );
 func_labels = readtable( fullfile( outpath, 'functional_labels.csv' ) );
 func_labels = func_labels( func_labels.network==1, : );
 

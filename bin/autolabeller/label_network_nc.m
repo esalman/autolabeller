@@ -25,6 +25,7 @@ function network_pred = label_network( outpath, sesInfo, sm_path )
         testing_opts.tc = fullfile(sesInfo.outputDir, [sesInfo.userInput.prefix '_mean_timecourses_ica_s_all_.nii']);
     else
         testing_opts.sm = sm_path;
+        training_opts.tc = [];
         testing_opts.tc = [];
     end
 
