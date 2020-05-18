@@ -89,7 +89,7 @@ end
 % %title pos
 titlepos = zeros(1,2); % for just the first cluster
 for ii=1
-    titlepos(ii,1) = sgrid(1,2,1)+hplot2/2; %fullw/2; %xpos
+    titlepos(ii,1) = sgrid(1,2,1)-hplot2/2; %fullw/2; %xpos
     titlepos(ii,2) = avgvspace*(ncomps-ii+1) + (ncomps-ii+1)*(avgvplot)-avgvspace*0.5;    %ypos
 end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%

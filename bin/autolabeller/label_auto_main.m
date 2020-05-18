@@ -45,18 +45,20 @@ function label_auto_main( params )
         params.noisecloud_opts = [];
     end
 
-    if ~isfield( params, 'prefix' )
-        params.prefix = '';
-    end
-
     if ~isfield( params, 'skip_noise' )
         params.skip_noise = 0;
     end
     if ~isfield( params, 'skip_anatomical' )
         params.skip_anatomical = 0;
     end
+    if ~isfield( params, 'anatomical_atlas' )
+        params.anatomical_atlas = 'aal';
+    end
     if ~isfield( params, 'skip_functional' )
         params.skip_functional = 0;
+    end
+    if ~isfield( params, 'functional_atlas' )
+        params.functional_atlas = 'yeo_buckner';
     end
 
     % predict network labels (0=artifact, 1=network)
@@ -69,18 +71,18 @@ function label_auto_main( params )
     
     % predict anatomical labels
     if params.skip_anatomical
-        anat_labels = readtable( fullfile( params.outpath, 'anatomical_labels.csv' ) );
-        anat_labels = table2cell( anat_labels );
+        anat_labels = readtable( fullfile( params.outpath, ['anatomical_labels_' params.anatomical_atlas '.csv'] ) );
+        anat_labels = [anat_labels.Properties.VariableNames; table2cell( anat_labels )];
     else
-        anat_labels = label_anatomical( sm_path, network_labels, params.n_corr);
+        anat_labels = label_anatomical( sm_path, network_labels, params.anatomical_atlas, params.n_corr);
     end
     
     % predict functional labels
     if params.skip_functional
-        func_labels = readtable( fullfile( params.outpath, 'functional_labels.csv' ) );
-        func_labels = table2cell( func_labels );
+        func_labels = readtable( fullfile( params.outpath, ['functional_labels_' params.functional_atlas '.csv'] ) );
+        func_labels = [func_labels.Properties.VariableNames; table2cell( func_labels )];
     else
-        func_labels = label_functional( sm_path, network_labels, params.n_corr);
+        func_labels = label_functional( sm_path, network_labels, params.functional_atlas, params.n_corr);
     end
 
     % sort FNC
@@ -90,17 +92,21 @@ function label_auto_main( params )
         [sorted_idx, network_fnc, order_] = sort_fnc( fnc, func_labels(2:end,1:3) );
 
         % sort the other labels
-        anat_labels(2:end, :) = anat_labels( order_+1, : );
-        func_labels(2:end, :) = func_labels( order_+1, : );
+        if ~params.skip_anatomical
+            anat_labels(2:end, :) = anat_labels( order_+1, : );
+        end
+        if ~params.skip_functional
+            func_labels(2:end, :) = func_labels( order_+1, : );
+        end
     end
 
     % write output
     writematrix( network_labels, fullfile(params.outpath, 'network_labels.csv') )
-    writecell( anat_labels, fullfile(params.outpath, 'anatomical_labels.csv') )
-    writecell( func_labels, fullfile(params.outpath, 'functional_labels.csv') )
+    writecell( anat_labels, fullfile(params.outpath, ['anatomical_labels_' params.anatomical_atlas '.csv']) )
+    writecell( func_labels, fullfile(params.outpath, ['functional_labels_' params.functional_atlas '.csv']) )
     if flag_sort_fnc
-        writematrix( sorted_idx, fullfile(params.outpath, 'sorted_network_idx.csv') )
-        writematrix( network_fnc, fullfile(params.outpath, 'sorted_fnc.csv') )
+        writematrix( sorted_idx, fullfile(params.outpath, ['sorted_network_idx_' params.functional_atlas '.csv']) )
+        writematrix( network_fnc, fullfile(params.outpath, ['sorted_fnc_' params.functional_atlas '.csv']) )
     end
 
     

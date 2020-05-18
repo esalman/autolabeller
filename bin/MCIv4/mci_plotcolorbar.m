@@ -21,8 +21,8 @@ else
     ticklabel{2} = sprintf('%0.1f', IMinfo.maxval);
 end
 
-set(CBAR, 'YTickLabel', ticklabel, 'FontName', 'Arial', 'FontSize', 8, 'Color', [1 1 1]);
+set(CBAR, 'YTickLabel', ticklabel, 'FontSize', 6, 'Color', [0 0 0]);
 set(get(CBAR, 'YLabel'), 'units', 'normalized')
-set(get(CBAR, 'YLabel'), 'String',IMinfo.cbarlabel, 'FontName', 'Arial', 'FontSize', 8, 'Color', [1 1 1]);
+set(get(CBAR, 'YLabel'), 'String',IMinfo.cbarlabel, 'FontSize', 6, 'Color', [0 0 0]);
 set(get(CBAR, 'YLabel'), 'position', [1.8000  0.5 0])
 drawnow;

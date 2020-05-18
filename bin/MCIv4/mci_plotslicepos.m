@@ -15,5 +15,5 @@ end
 for ii = 1:3 % views
     Tax = axes('Parent', F, 'position', [IMinfo.textpos(ind,ii,1) IMinfo.textpos(ind,ii,2), .1 .1], 'units', 'normalized', 'color', [1 1 1]);
     axis(Tax, 'off');
-    T(ii) = text(0,0, SLICEstring{ii}, 'Parent', Tax, 'Color', [1 1 1], 'FontName', 'Arial', 'FontSize', 10, 'HorizontalAlignment', 'center','VerticalAlignment', 'top');
+    T(ii) = text(0,0, SLICEstring{ii}, 'Parent', Tax, 'Color', [0 0 0], 'FontSize', 8, 'HorizontalAlignment', 'center');
 end

@@ -1,7 +1,7 @@
 % input: path to nifti file, index of networks and correlations with how many regions
 % anatomical regions to return
 % output: volumes x 2*(n+1) cell of indices, anatomical region names and correlation values
-function anat_pred = label_anatomical( sm_file, networks, n )
+function anat_pred = label_anatomical( sm_file, networks, atlas, n )
     aal_path = which('aal.nii');
     aal_label_path = which('aal.nii.txt');
 
