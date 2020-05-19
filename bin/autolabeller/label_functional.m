@@ -64,7 +64,7 @@ function ret = load_atlas( atlas_name )
     otherwise
         % yeo_buckner
         disp('resampling to Bucknerlab atlas')
-        ret.name = atlatlas_nameas;
+        ret.name = atlas_name;
         ret.path = which( 'resampled_mask_Buckner_r286.nii' );
         labels_path = which( 'idx_286_for_Buckner17.mat' );
     
