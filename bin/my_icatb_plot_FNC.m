@@ -1,6 +1,8 @@
 function [F,A,C,I] = my_icatb_plot_FNC(FNC, CLIM, LABEL, RSN_I, F, T, sh, MOD, MOD_NAMES, IFplotdiag)
 % [F,A,C,I] = plot_FNC(FNC, CLIM, LABEL, RSN_I, F, T)
 
+fontname = 'Jost';
+
 % define the size of each "MODULE"
 %MOD = [4, 2, 8, 10, 14, 9];
 if (~exist('MOD', 'var'))
@@ -76,8 +78,8 @@ set(c(2*(length(RSN_I)+1)-cMOD), 'Color', foregroundcolor)
 uistack(c(2*(length(RSN_I)+1)-cMOD), 'top')
 A = sh;
 I = c(find(strcmp(get(c, 'Type'),'image')));
-C = colorbar;
-ylabel(C, T, 'fontweight', 'normal', 'fontsize', 12)
+C = colorbar( 'fontname', fontname );
+ylabel(C, T, 'fontweight', 'normal', 'fontsize', 12, 'fontname', fontname)
 axis image; colormap jet
 
 try
@@ -94,7 +96,7 @@ if exist('LABEL', 'var') && ~isempty(LABEL)
     c=get(A,'YTick');
     ypos = c(end) +1.25;
     th=text(1:length(b),repmat(ypos,length(b),1), LABEL(RSN_I),'HorizontalAlignment','right','rotation',90, ...
-        'color', foregroundcolor);
+        'color', foregroundcolor, 'fontname', fontname);
 end
 
 %% labeling
@@ -106,9 +108,9 @@ if exist('MOD_NAMES', 'var') && ~isempty(MOD_NAMES)
     ypos = c(end) + 1;
     xpos = b(end) + 1;
     th=text(repmat(0,length(b),1), 1:length(b), MOD_NAMES(1:length(RSN_I)),'HorizontalAlignment','right','rotation',0, ...
-        'color', foregroundcolor, 'fontweight', 'normal', 'fontsize', 11);
-    % th=text(1:length(c),repmat(xpos,length(c),1), MOD_NAMES(1:length(RSN_I)),'HorizontalAlignment','right','rotation',90, ...,
-    %     'color', foregroundcolor, 'fontweight', 'normal', 'fontsize', 11);
+        'color', foregroundcolor, 'fontweight', 'normal', 'fontsize', 11, 'fontname', fontname);
+    th=text(1:length(c),repmat(xpos,length(c),1), MOD_NAMES(1:length(RSN_I)),'HorizontalAlignment','right','rotation',45, ...,
+        'color', foregroundcolor, 'fontweight', 'normal', 'fontsize', 11, 'fontname', fontname);
 end
 
 
@@ -116,7 +118,7 @@ if exist('IFplotdiag', 'var') && ~isempty(RSN_I)
     hold on;
     if(IFplotdiag)
         for ii = 1:length(RSN_I);
-            T =text(ii,ii,num2str(RSN_I(ii)), 'fontsize', 7);
+            T =text(ii,ii,num2str(RSN_I(ii)), 'fontsize', 7, 'fontname', fontname);
             set(T, 'Color', foregroundcolor, 'HorizontalAlignment', 'Center');
         end
     end

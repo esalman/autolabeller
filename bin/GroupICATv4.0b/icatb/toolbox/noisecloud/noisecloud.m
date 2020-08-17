@@ -25,6 +25,7 @@ global NOISE_ATLAS_DIRS;
 %convert_to_z = 'no';
 %outDir = pwd;
 coregister_im = 1;
+threshold = 1;
 for nV = 1:length(varargin)
     if (strcmpi(varargin{nV}, 'convert_to_z'))
         convert_to_z = varargin{nV + 1};
@@ -32,6 +33,8 @@ for nV = 1:length(varargin)
         outDir = varargin{nV + 1};
     elseif (strcmpi(varargin{nV}, 'coregister'))
         coregister_im = varargin{nV + 1};
+    elseif (strcmpi(varargin{nV}, 'threshold'))
+        threshold = varargin{nV + 1};
     end
 end
 
@@ -136,19 +139,15 @@ for s = 1:numComp
         current_image = network_paths{s};
         current_image = spm_read_vols(spm_vol(current_image));
         current_image(isfinite(current_image) == 0) = 0;
-        sm = nc_spatial_features(current_image, convert_to_z);
+        sm = nc_spatial_features(current_image, convert_to_z, threshold);
     end
     
     if (~isempty(timeseries_paths))
         tc = nc_temporal_features(TC(:, s), convert_to_z);
     end
     
-    tmp = [sm, tc];
-    
-    features(s, :) = tmp;
-    
+    features(s, :) = [sm, tc];
 end
-
 
 %% Step 3: Normalization
 
@@ -245,7 +244,7 @@ function feature_labels = getFeatureLabels(network_paths, timeseries_paths)
 
 load('noise_cloud_params.mat');
 
-feature_labels = [];
+feature_labels = {};
 idx = 1;
 
 if (~isempty(network_paths))

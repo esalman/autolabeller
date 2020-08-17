@@ -16,3 +16,5 @@ function [network_idx_reordered, reordered_matrix, order_] = sort_fnc( fnc, labe
     % sorted output index of all components
     order_ = [network_idx_reordered; noise_idx];
 
+    disp('done reordering FNC')
+

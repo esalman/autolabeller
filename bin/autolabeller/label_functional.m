@@ -1,12 +1,18 @@
 % 
 % 
 % 
-function func_pred = label_functional( sm_file, networks, atlas_name, n )
+function func_pred = label_functional( sm_file, mask_file, threshold, networks, atlas_name, n )
 
     atlas = load_atlas( atlas_name );
 
-    sm_dat = fmri_data( sm_file, [], 'noverbose' );
-    atlas_dat = fmri_data( atlas.path, [], 'noverbose' );
+    sm_dat = fmri_data( sm_file, mask_file, 'noverbose' );
+    atlas_dat = fmri_data( atlas.path, mask_file, 'noverbose' );
+
+    % threshold if needed
+    if threshold
+        sm_dat.dat( abs( sm_dat.dat ) < threshold ) = 0;
+    end
+
     sm_dat = resample_space( sm_dat, atlas_dat );
     n_vols = size(sm_dat.dat, 2);
 

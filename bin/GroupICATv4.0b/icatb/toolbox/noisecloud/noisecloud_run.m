@@ -31,6 +31,7 @@ coregister_im = 1;
 num_iterations = 1;
 num_cross_validation = 10;
 convert_to_z = 'yes';
+threshold = 1;
 for nV = 1:length(varargin)
     if (strcmpi(varargin{nV}, 'convert_to_z'))
         convert_to_z = varargin{nV + 1};
@@ -42,6 +43,8 @@ for nV = 1:length(varargin)
         num_iterations = varargin{nV + 1};
     elseif (strcmpi(varargin{nV}, 'cross_validation'))
         num_cross_validation = varargin{nV + 1};
+    elseif (strcmpi(varargin{nV}, 'threshold'))
+        threshold = varargin{nV + 1};
     end
 end
 
@@ -97,7 +100,18 @@ end
 
 %% Get the features of training data
 disp('Computing spatial and temporal features of training data ...');
-[features_norm, feature_labels] = noisecloud(training_opts.TR, file_names_training, training_tc, 'convert_to_z', convert_to_z, 'outDir', outDir, 'coregister', coregister_im);
+
+[features_norm, feature_labels] = noisecloud(training_opts.TR, file_names_training, training_tc, 'convert_to_z', convert_to_z, 'outDir', outDir, 'coregister', coregister_im, 'threshold', threshold);
+% % salman 20200521
+% % load precomputed features from file
+% t1 = readtable( fullfile(outDir, 'training_features.csv') );
+% feature_labels = t1.Properties.VariableNames;
+% features_norm = table2array( t1 );
+% save features
+t1 = num2cell( features_norm );
+t1 = [feature_labels; t1];
+writecell( t1, fullfile(outDir, 'training_features.csv') )
+
 
 if (isnumeric(training_opts.class_labels))
     tmpLa = training_opts.class_labels;
@@ -107,7 +121,7 @@ end
 
 labels.decision = tmpLa(:);
 disp('Building classifier using logistic regression ...');
-result_nc_classifier = noisecloud_classify(features_norm, feature_labels, labels, 'iterations', num_iterations, 'cross_validation', num_cross_validation);
+result_nc_classifier = noisecloud_classify(features_norm, feature_labels, labels, 'iterations', num_iterations, 'cross_validation', num_cross_validation, 'threshold', threshold);
 
 %% Use the best lambda parameter to train the data again
 options = glmnetSet;
@@ -120,6 +134,16 @@ fit_mdl = glmnet(features_norm, labels.decision, 'binomial', options);
 disp('Computing spatial and temporal features of testing data ...');
 [features_norm_test, feature_labels_test] = noisecloud(testing_opts.TR, file_names_testing, testing_tc, 'convert_to_z', convert_to_z, 'outDir', outDir, ...
     'coregister', 0);
+% salman 20200521
+% % load precomputed features from file
+% t1 = readtable( fullfile(outDir, 'testing_features.csv') );
+% feature_labels_test = t1.Properties.VariableNames;
+% features_norm_test = table2array( t1 );
+% save features
+t1 = num2cell( features_norm_test );
+t1 = [feature_labels; t1];
+writecell( t1, fullfile(outDir, 'testing_features.csv') )
+
 disp('Predicting ...');
 class_labels = glmnetPredict(fit_mdl, 'class', features_norm_test);
 class_labels(class_labels == 2) = 0;

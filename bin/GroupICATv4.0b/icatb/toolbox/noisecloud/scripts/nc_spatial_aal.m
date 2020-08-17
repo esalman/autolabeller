@@ -1,4 +1,4 @@
-function feature = nc_spatial_aal(spatialMap);
+function feature = nc_spatial_aal(spatialMap, threshold);
     global atlas;
         % AAL ATLAS FEATURES;
     % Requires aal2mni image registered to spatialMap space, see;
@@ -11,10 +11,16 @@ function feature = nc_spatial_aal(spatialMap);
     % Get rid of atlas_index(1), which is the index for 0;
     atlas_index(1) = [];
     feature = zeros(size(atlas_index,1),1);
+
+    % salman 20200525 
+    % without thresholding every SM returns the same AAL features
+    spatialMap( abs( spatialMap(:) ) < threshold ) = 0;
+
         % For each region in the AAL mask (with a unique ID), create a mask;
     % for the region, and multiply by the current image to get voxels;
     % with activation.  Sum this image to get a count, and save to vector;
     for j=1:length(atlas_index);
+        % feature(j) = length(find(spatialMap(atlas == atlas_index(j)~= 0)));
         feature(j) = length(find(spatialMap(atlas == atlas_index(j)~= 0)));
     end;
 end

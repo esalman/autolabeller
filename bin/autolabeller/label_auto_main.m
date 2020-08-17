@@ -1,16 +1,63 @@
 % Autolabeller function
-% Inputs: 
-%   params.param_file: GICA session parameter file. Make sure to post process GICA results by running HTML report
-%   params.sm_path: if you want to label a simple nifti volume instead of GICA result, specify this instead
-%   params.outpath: output folder
-%   params.n_corr: top X correlations with knowmn anatomical/functional regions. Recommended value is 3
-%   params.fit_method: method used to fit training data for artifact detection. Recommended value is 'mnr' (multinomial logistic regression)
+%   Given a set of spatial maps (and optional timecourses from GICA output), 
+%   autolabeller separates networks from artifacts (using the Noisecloud 
+%   toolbox [1]), provides anatomical [2] and functional labels [3-4] and sorts 
+%   the maps based on the functional labels (using BCT toolbox) [5].
+% 
+% Example usage: 
+%   See src/example_label_id.m for examples.
+% 
+% Inputs
+%   params.param_file
+%       Location of GICA parameter file
+%   params.sm_path
+%       Location of NIFTI data containing spatial maps. Use this if you are not 
+%       running GICA.
+%   params.outpath
+%       Output directory
+%   params.n_corr
+%       How many ROI top correlations to calculate for anatomical/functional
+%       labeling. Default = 3
+%   params.threshold
+%       Threshold value for the spatial maps. Default = 3
+%   params.skip_noise
+%       If you do not want to run or already ran artifact detection step, set to
+%       1. Otherwise set to 0 by default.
+%   params.skip_anatomical
+%       If you do not want to run or already ran anatomical labeling step, set to
+%       1. Otherwise set to 0 by default.
+%   params.skip_functional
+%       If you do not want to run or already ran functional labeling step, set to
+%       1. Otherwise set to 0 by default.
+%   params.noise_training_set
+%       Options: 'fbirn', 'neuromark', 'debug'
+%       Which dataset to use to train the noisecloud model
+%   params.anatomical_atlas
+%       Options: 'aal'
+%       Which atlas to use for anatomical labeling
+%   params.functional_atlas
+%       Options: 'yeo_buckner', 'gordon2016', 'caren'
+%       Which atlas to use for functional labeling. Default = 'yeo_buckner'
+% 
 % Outputs: the following files are written into params.outpath folder:
-%   network_labels.csv: network labels vector (0=artifact, 1=network) and probability that the component/spatial map is a network
-%   anatomical_labels.csv: AAL anatomical region with highest correlations
-%   functional_labels.csv: Buckner functional parcellations with highest correlations
-%   sorted_IC_idx.csv: sorted IC index
-%   sorted_fnc.csv: sorted FNC matrix
+%   network_labels.csv
+%       Network labels vector (0=artifact, 1=network) and probability that the component/spatial map is a network
+%   anatomical_labels.csv
+%       AAL anatomical region with highest correlations
+%   functional_labels.csv
+%       Buckner functional parcellations with highest correlations
+%   sorted_IC_idx.csv
+%       sorted IC index
+%   sorted_fnc.csv
+%       sorted FNC matrix
+% 
+% References:
+%   [1] V. Sochat, K. Supekar, J. Bustillo, V. Calhoun, J. A. Turner, and D. L. Rubin, “A Robust Classifier to Distinguish Noise from fMRI Independent Components,” PLoS One, vol. 9, no. 4, Apr. 2014, doi: 10.1371/journal.pone.0095493.
+%   [2] N. Tzourio-Mazoyer et al., “Automated Anatomical Labeling of Activations in SPM Using a Macroscopic Anatomical Parcellation of the MNI MRI Single-Subject Brain,” NeuroImage, vol. 15, no. 1, pp. 273–289, Jan. 2002, doi: 10.1006/nimg.2001.0978.
+%   [3] B. T. T. Yeo et al., “The organization of the human cerebral cortex estimated by intrinsic functional connectivity,” J. Neurophysiol., vol. 106, no. 3, pp. 1125–1165, Sep. 2011, doi: 10.1152/jn.00338.2011.
+%   [4] R. L. Buckner, F. M. Krienen, A. Castellanos, J. C. Diaz, and B. T. T. Yeo, “The organization of the human cerebellum estimated by intrinsic functional connectivity,” Journal of Neurophysiology, vol. 106, no. 5, pp. 2322–2345, Jul. 2011, doi: 10.1152/jn.00339.2011.
+%   [5] M. Rubinov and O. Sporns, “Complex network measures of brain connectivity: Uses and interpretations,” NeuroImage, vol. 52, no. 3, pp. 1059–1069, Sep. 2010, doi: 10.1016/j.neuroimage.2009.10.003.
+
 
 function label_auto_main( params )
     % add paths
@@ -34,31 +81,22 @@ function label_auto_main( params )
         post_process = load( fullfile(sesInfo.outputDir, [sesInfo.userInput.prefix '_postprocess_results.mat']) );
         % IC aggregate map path
         sm_path = fullfile(sesInfo.outputDir, [sesInfo.aggregate_components_an3_file '.nii']);
+        mask_path = fullfile(sesInfo.outputDir, [sesInfo.userInput.prefix 'Mask.img']);
         flag_sort_fnc = 1;
     else
         sesInfo = [];
         sm_path = params.sm_path;
+        mask_path = params.mask_path;
         flag_sort_fnc = 0;
     end
 
-    if ~isfield( params, 'noisecloud_opts' )
-        params.noisecloud_opts = [];
+    if isfield( params, 'threshold' ) && ~params.threshold
+        disp('Forcing threshold=1')
+        params.threshold = 1;
     end
 
-    if ~isfield( params, 'skip_noise' )
-        params.skip_noise = 0;
-    end
-    if ~isfield( params, 'skip_anatomical' )
-        params.skip_anatomical = 0;
-    end
-    if ~isfield( params, 'anatomical_atlas' )
-        params.anatomical_atlas = 'aal';
-    end
-    if ~isfield( params, 'skip_functional' )
-        params.skip_functional = 0;
-    end
-    if ~isfield( params, 'functional_atlas' )
-        params.functional_atlas = 'yeo_buckner';
+    if ~isfield( params, 'noise_training_set' )
+        params.noise_training_set = 'fbirn';
     end
 
     % predict network labels (0=artifact, 1=network)
@@ -66,7 +104,8 @@ function label_auto_main( params )
     if params.skip_noise
         network_labels = readmatrix( fullfile( params.outpath, 'network_labels.csv' ) );
     else
-        network_labels = label_network_nc( fullfile( params.outpath, 'nc' ), sesInfo, sm_path );
+        network_labels = label_network_nc( fullfile( params.outpath, 'nc' ), sesInfo, sm_path, params.noise_training_set, params.threshold );
+        writematrix( network_labels, fullfile(params.outpath, 'network_labels.csv') )
     end
     
     % predict anatomical labels
@@ -74,7 +113,8 @@ function label_auto_main( params )
         anat_labels = readtable( fullfile( params.outpath, ['anatomical_labels_' params.anatomical_atlas '.csv'] ) );
         anat_labels = [anat_labels.Properties.VariableNames; table2cell( anat_labels )];
     else
-        anat_labels = label_anatomical( sm_path, network_labels, params.anatomical_atlas, params.n_corr);
+        [anat_labels, corrs_] = label_anatomical( sm_path, mask_path, params.threshold, network_labels, params.anatomical_atlas, params.n_corr);
+        writematrix( corrs_, fullfile(params.outpath, 'anatomical_correlations.csv') )
     end
     
     % predict functional labels
@@ -82,7 +122,7 @@ function label_auto_main( params )
         func_labels = readtable( fullfile( params.outpath, ['functional_labels_' params.functional_atlas '.csv'] ) );
         func_labels = [func_labels.Properties.VariableNames; table2cell( func_labels )];
     else
-        func_labels = label_functional( sm_path, network_labels, params.functional_atlas, params.n_corr);
+        func_labels = label_functional( sm_path, mask_path, params.threshold, network_labels, params.functional_atlas, params.n_corr);
     end
 
     % sort FNC
@@ -101,7 +141,6 @@ function label_auto_main( params )
     end
 
     % write output
-    writematrix( network_labels, fullfile(params.outpath, 'network_labels.csv') )
     writecell( anat_labels, fullfile(params.outpath, ['anatomical_labels_' params.anatomical_atlas '.csv']) )
     writecell( func_labels, fullfile(params.outpath, ['functional_labels_' params.functional_atlas '.csv']) )
     if flag_sort_fnc
