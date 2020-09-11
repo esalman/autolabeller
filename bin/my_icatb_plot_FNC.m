@@ -108,9 +108,9 @@ if exist('MOD_NAMES', 'var') && ~isempty(MOD_NAMES)
     ypos = c(end) + 1;
     xpos = b(end) + 1;
     th=text(repmat(0,length(b),1), 1:length(b), MOD_NAMES(1:length(RSN_I)),'HorizontalAlignment','right','rotation',0, ...
-        'color', foregroundcolor, 'fontweight', 'normal', 'fontsize', 11, 'fontname', fontname);
+        'color', foregroundcolor, 'fontweight', 'normal', 'fontsize', 12, 'fontname', fontname);
     th=text(1:length(c),repmat(xpos,length(c),1), MOD_NAMES(1:length(RSN_I)),'HorizontalAlignment','right','rotation',45, ...,
-        'color', foregroundcolor, 'fontweight', 'normal', 'fontsize', 11, 'fontname', fontname);
+        'color', foregroundcolor, 'fontweight', 'normal', 'fontsize', 12, 'fontname', fontname);
 end
 
 
@@ -118,7 +118,7 @@ if exist('IFplotdiag', 'var') && ~isempty(RSN_I)
     hold on;
     if(IFplotdiag)
         for ii = 1:length(RSN_I);
-            T =text(ii,ii,num2str(RSN_I(ii)), 'fontsize', 7, 'fontname', fontname);
+            T =text(ii,ii,num2str(RSN_I(ii)), 'fontsize', 5, 'fontname', fontname);
             set(T, 'Color', foregroundcolor, 'HorizontalAlignment', 'Center');
         end
     end
