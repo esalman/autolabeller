@@ -40,10 +40,15 @@ Example code can be found in `src/example_label_ic.m`. Note that it requires aro
     disp( 'Running the autolabeller on NeuroMark dataset' )
     label_auto_main( params );
 
-### Visualization
+## Visualization
 
 An optional FNC visualization script is provided (`src/example_plot_fnc.m`).
 
 ## Result
 
 ![fbirn/fnc_reordered](results/fbirn/fnc_reordered.png)
+
+## Customizing the output
+
+## Citation
+
