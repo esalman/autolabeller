@@ -3,6 +3,10 @@
 function network_pred = label_network_nc( outpath, sesInfo, sm_path, noise_training_set, threshold )
     disp('predicting networks')
 
+    training_opts.pretrain = 0;
+    training_opts.sm = [];
+    training_opts.tc = [];
+
     if isa( noise_training_set, 'struct' )
         training_opts.sm = noise_training_set.sm; % Spatial maps
         training_opts.tc = noise_training_set.tc; % Timecourses
@@ -10,26 +14,41 @@ function network_pred = label_network_nc( outpath, sesInfo, sm_path, noise_train
         ic_meta = double( ~noise_training_set.class_labels );
     else
         switch noise_training_set
-        case 'neuromark'
-            training_opts.sm = which( 'NetworkTemplate_High_VarNor.nii' ); % Spatial maps
-            training_opts.tc = []; % Timecourses
-            % noise is lablled as 1 in noisecloud
-            ic_meta = ones( 1, 100 );
-            t1 = [2,3,4,5,7,9,11,12,13,15,16,17,18,20,21,23,26,27,28,32,33,37,38,40,43,44,45,46,51,53,54,55,56,61,63,66,67,68,69,70,71,72,73,77,81,84,88,91,93,94,95,96,98,99];
-            ic_meta( t1 ) = 0;
-        case 'debug'
-            training_opts.sm = '/data/mialab/users/salman/projects/autolabeler/current/results/fbirn_trained_by_neuromark/sm11.nii'; % Spatial maps
-            training_opts.tc = []; % Timecourses
-            % noise is lablled as 1 in noisecloud
-            ic_meta = ones( 1, 11 );
-            t1 = [1 2 5 6 7 9 10];
-            ic_meta( t1 ) = 0;
         case 'fbirn_sub'
             training_opts.sm = '/data/mialab/users/salman/projects/autolabeler/current/results/fbirn_sub_nc_data/nc_training_sample_sm.nii'; % Spatial maps
             training_opts.tc = '/data/mialab/users/salman/projects/autolabeler/current/results/fbirn_sub_nc_data/nc_training_sample_tc.nii'; % Timecourses
             % noise is lablled as 1 in noisecloud
             t1 = csvread( '/data/mialab/users/salman/projects/autolabeler/current/results/fbirn_sub_nc_data/nc_training_labels.csv' );
             ic_meta = double( ~t1 );
+        case 'pre_fbirn_sub'
+            training_opts.pretrain = 1;
+            % load precomputed features from file
+            t1 = readtable( which('pre_fbirn_sub_th04.csv') );
+            training_opts.feature_labels = t1.Properties.VariableNames;
+            training_opts.features_norm = table2array( t1 );
+            % use HCP first volume for registration
+            training_opts.sm = which('fbirn_subxxx_component.nii');
+            % noise is lablled as 1 in noisecloud
+            t1 = csvread( which('pre_fbirn_sub_th04_labels.csv') );
+            ic_meta = double( ~t1 );
+        case 'pre_aggregate'
+            training_opts.pretrain = 1;
+            % load precomputed features from file
+            t1 = readtable( which('pre_aggregate.csv') );
+            training_opts.feature_labels = t1.Properties.VariableNames;
+            training_opts.features_norm = table2array( t1 );
+            % use HCP first volume for registration
+            training_opts.sm = which('hcp_vol1_registration.nii');
+            % noise is lablled as 1 in noisecloud
+            t1 = csvread( which('pre_aggregate_labels.csv') );
+            ic_meta = double( ~t1 );
+        case 'debug'
+            training_opts.sm = '/data/mialab/users/salman/projects/autolabeler/current/results/fbirn_sub_nc_data/nc_training_sample_sm.nii'; % Spatial maps
+            training_opts.tc = []; % Timecourses
+            % noise is lablled as 1 in noisecloud
+            ic_meta = ones( 1, 11 );
+            t1 = [1 2 5 6 7 9 10];
+            ic_meta( t1 ) = 0;
         otherwise
             % use fBIRN for training
             training_opts.sm = which('fbirnp3_rest_mean_component_ica_s_all_.nii'); % Spatial maps
@@ -50,7 +69,7 @@ function network_pred = label_network_nc( outpath, sesInfo, sm_path, noise_train
     
     if ~isempty( sesInfo )
         testing_opts.sm = fullfile(sesInfo.outputDir, [sesInfo.userInput.prefix '_mean_component_ica_s_all_.nii']);
-        if ~isempty( training_opts.tc )
+        if ~isempty( training_opts.tc ) | training_opts.pretrain
             testing_opts.tc = fullfile(sesInfo.outputDir, [sesInfo.userInput.prefix '_mean_timecourses_ica_s_all_.nii']);
         else
             testing_opts.tc = [];
