@@ -30,8 +30,10 @@
 %       If you do not want to run or already ran functional labeling step, set to
 %       1. Otherwise set to 0 by default.
 %   params.noise_training_set
-%       Options: 'fbirn', 'neuromark', 'debug'
+%       Options: 'pre_fbirn_sub', 'pre_aggregate'
 %       Which dataset to use to train the noisecloud model
+%       pre_fbirn_sub: when both spatial maps and timecourses are available, as in a GIFT output
+%       pre_aggregate: when only spatial maps are available
 %   params.anatomical_atlas
 %       Options: 'aal'
 %       Which atlas to use for anatomical labeling
@@ -57,6 +59,9 @@
 %   [3] B. T. T. Yeo et al., “The organization of the human cerebral cortex estimated by intrinsic functional connectivity,” J. Neurophysiol., vol. 106, no. 3, pp. 1125–1165, Sep. 2011, doi: 10.1152/jn.00338.2011.
 %   [4] R. L. Buckner, F. M. Krienen, A. Castellanos, J. C. Diaz, and B. T. T. Yeo, “The organization of the human cerebellum estimated by intrinsic functional connectivity,” Journal of Neurophysiology, vol. 106, no. 5, pp. 2322–2345, Jul. 2011, doi: 10.1152/jn.00339.2011.
 %   [5] M. Rubinov and O. Sporns, “Complex network measures of brain connectivity: Uses and interpretations,” NeuroImage, vol. 52, no. 3, pp. 1059–1069, Sep. 2010, doi: 10.1016/j.neuroimage.2009.10.003.
+% 
+% Citation:
+%   https://doi.org/10.1101/2020.08.31.275578 
 
 
 function label_auto_main( params )
@@ -105,7 +110,7 @@ function label_auto_main( params )
         network_labels = readmatrix( fullfile( params.outpath, 'network_labels.csv' ) );
     else
         network_labels = label_network_nc( fullfile( params.outpath, 'nc' ), sesInfo, sm_path, params.noise_training_set, params.threshold );
-        writematrix( network_labels, fullfile(params.outpath, 'network_labels.csv') )
+        csvwrite( fullfile(params.outpath, 'network_labels.csv'), network_labels )
     end
     
     % predict anatomical labels
@@ -114,7 +119,7 @@ function label_auto_main( params )
         anat_labels = [anat_labels.Properties.VariableNames; table2cell( anat_labels )];
     else
         [anat_labels, corrs_] = label_anatomical( sm_path, mask_path, params.threshold, network_labels, params.anatomical_atlas, params.n_corr);
-        writematrix( corrs_, fullfile(params.outpath, 'anatomical_correlations.csv') )
+        csvwrite( fullfile(params.outpath, 'anatomical_correlations.csv'), corrs_ )
     end
     
     % predict functional labels
@@ -144,8 +149,8 @@ function label_auto_main( params )
     writecell( anat_labels, fullfile(params.outpath, ['anatomical_labels_' params.anatomical_atlas '.csv']) )
     writecell( func_labels, fullfile(params.outpath, ['functional_labels_' params.functional_atlas '.csv']) )
     if flag_sort_fnc
-        writematrix( sorted_idx, fullfile(params.outpath, ['sorted_network_idx_' params.functional_atlas '.csv']) )
-        writematrix( network_fnc, fullfile(params.outpath, ['sorted_fnc_' params.functional_atlas '.csv']) )
+        csvwrite( fullfile(params.outpath, ['sorted_network_idx_' params.functional_atlas '.csv']), sorted_idx )
+        csvwrite( fullfile(params.outpath, ['sorted_fnc_' params.functional_atlas '.csv']), network_fnc )
     end
 
     
