@@ -1,3 +1,5 @@
+[![DOI](https://zenodo.org/badge/253869566.svg)](https://zenodo.org/badge/latestdoi/253869566)
+
 # Autolabeller
 
 This tool can automatically generate anatomical and functional labels of spatial maps of brain activity, and a reordered functional network connectivity matrix.
