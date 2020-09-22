@@ -105,7 +105,7 @@ The following files are written into params.outpath folder:
 ## Customizing the output
 
 The autolabeler outputs can be easily updated based on visual observation as follows:
-- Change the network(1)/noise(0) labels corresponding to the IC you want to update.
+- Change the network(1)/noise(0) labels corresponding to the IC you want to update in `network_labels.csv`.
 - Set `params.skip_noise = 1`
 - Run the autolabeller with the original parameters again.
 
