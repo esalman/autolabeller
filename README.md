@@ -84,9 +84,7 @@ The following files are written into params.outpath folder:
 
 ## Result
 
-<img src="results/fbirn_nc_train_sub_th04/FBIRN_fnc_unsorted_yeo_buckner.png" alt="unsorted" width="150"/>
-<img src="results/fbirn_nc_train_sub_th04/FBIRN_fnc_reordered_yeo_buckner.png" alt="reordered" width="150"/>
-<img src="results/fbirn_nc_train_sub_th04/FBIRN_fnc_icn_yeo_buckner.png" alt="icn" width="150"/>
+<img src="results/fbirn_nc_train_sub_th04/FBIRN_fnc_unsorted_yeo_buckner.png" alt="unsorted" width="150"/> <img src="results/fbirn_nc_train_sub_th04/FBIRN_fnc_reordered_yeo_buckner.png" alt="reordered" width="150"/> <img src="results/fbirn_nc_train_sub_th04/FBIRN_fnc_icn_yeo_buckner.png" alt="icn" width="150"/>
 
 ## Customizing the output
 
