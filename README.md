@@ -2,7 +2,7 @@
 
 # Autolabeller
 
-This tool can automatically generate anatomical and functional labels of spatial maps of brain activity, and a reordered functional network connectivity matrix.
+This tool can automatically classify noisy spatial maps of brain activity, and generate anatomical and functional labels of the spatial maps and a reordered functional network connectivity matrix.
 
 ## Prerequisites
 
@@ -15,7 +15,7 @@ Autolabeller is written in Matlab™ and requires several Matlab toolboxes to ru
 
 ## Using the autolabeller
 
-Example code can be found in `src/example_label_ic.m`. Note that it requires around 4GB of RAM to run.
+Example code can be found in `src/example_label_ic.m`.
 
     % add requirements to path
     addpath( genpath( '../bin/GroupICATv4.0b/' ) )      % GIFT toolbox
@@ -60,47 +60,33 @@ Example code can be found in `src/example_label_ic.m`. Note that it requires aro
 ## Parameters & outputs
 
 ### Inputs
-* `params.param_file`
-    - Location of GICA parameter file
-* `params.sm_path`
-    - Location of NIFTI data containing spatial maps. Use this if you are not running GICA.
-* `params.outpath`
-    - Output directory
-* `params.n_corr`
-    - How many ROI top correlations to calculate for anatomical/functional labeling. Default = 3
-* `params.threshold`
-    - Threshold value for the spatial maps. Default = 3
-* `params.skip_noise`
-    - If you do not want to run or already ran artifact detection step, set to 1. Otherwise set to 0 by default.
-* `params.skip_anatomical`
-    - If you do not want to run or already ran anatomical labeling step, set to 1. Otherwise set to 0 by default.
-* `params.skip_functional`
-    - If you do not want to run or already ran functional labeling step, set to 1. Otherwise set to 0 by default.
-* `params.noise_training_set`
-    - Which dataset to use to train the noisecloud model. Options: `pre_fbirn_sub`, `pre_aggregate`
-        - `pre_fbirn_sub`: when both spatial maps and timecourses are available, as in a GIFT output
-        - `pre_aggregate`: when only spatial maps are available
-* `params.anatomical_atlas`
-    - Which atlas to use for anatomical labeling. Options: `aal`
-* `params.functional_atlas`
-    - Which atlas to use for functional labeling. Options: `yeo_buckner`, `gordon2016`, `caren`. Default = `yeo_buckner`.
+* `params.param_file` Location of GICA parameter file
+* `params.sm_path` Location of NIFTI data containing spatial maps. Use this if you are not running GICA.
+* `params.outpath` Output directory
+* `params.n_corr` How many ROI top correlations to calculate for anatomical/functional labeling. Default = 3
+* `params.threshold` Threshold value for the spatial maps. Default = 3
+* `params.skip_noise` If you do not want to run or already ran artifact detection step, set to 1. Otherwise set to 0 by default.
+* `params.skip_anatomical` If you do not want to run or already ran anatomical labeling step, set to 1. Otherwise set to 0 by default.
+* `params.skip_functional` If you do not want to run or already ran functional labeling step, set to 1. Otherwise set to 0 by default.
+* `params.noise_training_set` Which dataset to use to train the noisecloud model. Options: `pre_fbirn_sub`, `pre_aggregate`
+    - `pre_fbirn_sub`: when both spatial maps and timecourses are available, as in a GIFT output
+    - `pre_aggregate`: when only spatial maps are available
+* `params.anatomical_atlas` Which atlas to use for anatomical labeling. Options: `aal`
+* `params.functional_atlas` Which atlas to use for functional labeling. Options: `yeo_buckner`, `gordon2016`, `caren`. Default = `yeo_buckner`.
 
 ### Outputs
 The following files are written into params.outpath folder:
-* `network_labels.csv`
-    - Network labels vector (0=artifact, 1=network) and probability that the component/spatial map is a network
-* `anatomical_labels.csv`
-    - AAL anatomical region with highest correlations to the spatial maps
-* `functional_labels.csv`
-    - Functional parcellations with highest correlations to the spatial maps
-* `sorted_IC_idx.csv`
-    - sorted IC index
-* `sorted_fnc.csv`
-    - sorted FNC matrix
+* `network_labels.csv` Network labels vector (0=artifact, 1=network) and probability that the component/spatial map is a network
+* `anatomical_labels.csv` AAL anatomical region with highest correlations to the spatial maps
+* `functional_labels.csv` Functional parcellations with highest correlations to the spatial maps
+* `sorted_IC_idx.csv` sorted IC index
+* `sorted_fnc.csv` sorted FNC matrix
 
 ## Result
 
-![fbirn/fnc_reordered](results/fbirn/fnc_reordered.png)
+<img src="results/fbirn_nc_train_sub_th04/FBIRN_fnc_unsorted_yeo_buckner.png" alt="unsorted" width="150"/>
+<img src="results/fbirn_nc_train_sub_th04/FBIRN_fnc_reordered_yeo_buckner.png" alt="reordered" width="150"/>
+<img src="results/fbirn_nc_train_sub_th04/FBIRN_fnc_icn_yeo_buckner.png" alt="icn" width="150"/>
 
 ## Customizing the output
 
