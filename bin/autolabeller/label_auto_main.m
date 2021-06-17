@@ -86,6 +86,7 @@ function label_auto_main( params )
         post_process = load( fullfile(sesInfo.outputDir, [sesInfo.userInput.prefix '_postprocess_results.mat']) );
         % IC aggregate map path
         sm_path = fullfile(sesInfo.outputDir, [sesInfo.aggregate_components_an3_file '.nii']);
+        tc_path = '';
         mask_path = fullfile(sesInfo.outputDir, [sesInfo.userInput.prefix 'Mask.img']);
         flag_sort_fnc = 1;
     else
