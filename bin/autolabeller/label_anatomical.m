@@ -43,6 +43,9 @@ function [anat_pred, corrs_] = label_anatomical( sm_file, mask_file, threshold, 
 
     % network flags
     anat_pred = cell( n_vols,  2*(n+1) );
+    if networks == 1
+        networks = ones( n_vols, 1 );
+    end
     anat_pred(:, 2) = num2cell( networks );
 
     disp('computing correlation')
@@ -61,7 +64,7 @@ function [anat_pred, corrs_] = label_anatomical( sm_file, mask_file, threshold, 
             anat_pred{jj, t1+1} = vv(kk);
             t1 = t1 + 2;
             if ~header_flag
-                headers = [headers, {['region_' num2str(kk)] ['corr_' num2str(kk)]}];
+                headers = [headers, {['region_' num2str(kk)] ['spatial_corr_' num2str(kk)]}];
             end
         end
         header_flag = 1;

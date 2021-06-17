@@ -24,6 +24,9 @@ function func_pred = label_functional( sm_file, mask_file, threshold, networks, 
     corrs_ = corr( sm_dat.dat, atlas_V_2D );
 
     % network flags
+    if networks == 1
+        networks = ones( n_vols, 1 );
+    end
     func_pred(:, 2) = num2cell( networks );
     
     for jj = 1:n_vols
@@ -40,7 +43,7 @@ function func_pred = label_functional( sm_file, mask_file, threshold, networks, 
     % create header
     headers = {'volume', 'network'};
     for kk = 1:n
-        headers = [headers, {['region_' num2str(kk)] ['corr_' num2str(kk)]}];
+        headers = [headers, {['region_' num2str(kk)] ['spatial_corr_' num2str(kk)]}];
     end
 
     func_pred = [headers; func_pred];

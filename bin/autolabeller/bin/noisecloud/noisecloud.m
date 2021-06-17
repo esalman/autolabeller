@@ -1,4 +1,4 @@
-function [features_norm, feature_labels] = noisecloud(TR_value, network_paths, timeseries_paths, varargin)
+function [features_norm, feature_labels, features] = noisecloud(TR_value, network_paths, timeseries_paths, varargin)
 %% Noise cloud feature extraction. Adapted from original noise cloud function
 %at https://github.com/vsoch/noisecloud
 %

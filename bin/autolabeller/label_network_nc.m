@@ -1,6 +1,6 @@
 % input: noisecloud training spatial map and timecourses
 % output: 1 (network) or 0 (artifact)
-function network_pred = label_network_nc( outpath, sesInfo, sm_path, noise_training_set, threshold )
+function network_pred = label_network_nc( outpath, sesInfo, sm_path, tc_path, noise_training_set, threshold )
     disp('predicting networks')
 
     training_opts.pretrain = 0;
@@ -15,10 +15,10 @@ function network_pred = label_network_nc( outpath, sesInfo, sm_path, noise_train
     else
         switch noise_training_set
         case 'fbirn_sub'
-            training_opts.sm = '/data/mialab/users/salman/projects/autolabeler/current/results/fbirn_sub_nc_data/nc_training_sample_sm.nii'; % Spatial maps
-            training_opts.tc = '/data/mialab/users/salman/projects/autolabeler/current/results/fbirn_sub_nc_data/nc_training_sample_tc.nii'; % Timecourses
+            training_opts.sm = which('nc_training_sample_sm.nii'); % Spatial maps
+            training_opts.tc = which('nc_training_sample_tc.nii'); % Timecourses
             % noise is lablled as 1 in noisecloud
-            t1 = csvread( '/data/mialab/users/salman/projects/autolabeler/current/results/fbirn_sub_nc_data/nc_training_labels.csv' );
+            t1 = csvread( which( 'nc_training_labels.csv' ) );
             ic_meta = double( ~t1 );
         case 'pre_fbirn_sub'
             training_opts.pretrain = 1;
@@ -26,7 +26,7 @@ function network_pred = label_network_nc( outpath, sesInfo, sm_path, noise_train
             t1 = readtable( which('pre_fbirn_sub_th04.csv') );
             training_opts.feature_labels = t1.Properties.VariableNames;
             training_opts.features_norm = table2array( t1 );
-            % use HCP first volume for registration
+            % use random FBIRN volume for registration
             training_opts.sm = which('fbirn_subxxx_component.nii');
             % noise is lablled as 1 in noisecloud
             t1 = csvread( which('pre_fbirn_sub_th04_labels.csv') );
@@ -43,8 +43,8 @@ function network_pred = label_network_nc( outpath, sesInfo, sm_path, noise_train
             t1 = csvread( which('pre_aggregate_labels.csv') );
             ic_meta = double( ~t1 );
         case 'debug'
-            training_opts.sm = '/data/mialab/users/salman/projects/autolabeler/current/results/fbirn_sub_nc_data/nc_training_sample_sm.nii'; % Spatial maps
-            training_opts.tc = []; % Timecourses
+            % load dummy 11 ICs from an FBIRN subject
+            training_opts.sm = which('sm11_debug.nii'); % Spatial maps
             % noise is lablled as 1 in noisecloud
             ic_meta = ones( 1, 11 );
             t1 = [1 2 5 6 7 9 10];
@@ -76,14 +76,23 @@ function network_pred = label_network_nc( outpath, sesInfo, sm_path, noise_train
         end
     else
         testing_opts.sm = sm_path;
-        training_opts.tc = [];
-        testing_opts.tc = [];
+        if ~isempty( training_opts.tc ) | training_opts.pretrain
+            testing_opts.tc = tc_path;
+        else
+            training_opts.tc = [];
+            testing_opts.tc = [];
+        end
     end
 
     testing_opts.regress_cov = [];
     testing_opts.TR = 2;
 
-    [network_pred, fit_mdl, result_nc_classifier] = noisecloud_run(training_opts, testing_opts, 'convert_to_z', 'yes', 'outDir', outpath, 'coregister', 1, ...
+    nc_coregister = 1;
+    if isempty( training_opts.sm )
+        nc_coregister = 0;
+    end
+
+    [network_pred, fit_mdl, result_nc_classifier] = noisecloud_run(training_opts, testing_opts, 'convert_to_z', 'yes', 'outDir', outpath, 'coregister', nc_coregister, ...
         'iterations', 1, 'cross_validation', 10, 'threshold', threshold);
     
     % flip back because noise is lablled as 1 in noisecloud

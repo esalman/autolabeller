@@ -135,14 +135,10 @@ fit_mdl = glmnet(features_norm, labels.decision, 'binomial', options);
 
 %% Use testing data-set to predict the labels
 disp('Computing spatial and temporal features of testing data ...');
-[features_norm_test, feature_labels_test] = noisecloud(testing_opts.TR, file_names_testing, testing_tc, 'convert_to_z', convert_to_z, 'outDir', outDir, ...
+[features_norm_test, feature_labels_test, features_raw] = noisecloud(testing_opts.TR, file_names_testing, testing_tc, 'convert_to_z', convert_to_z, 'outDir', outDir, ...
     'coregister', coregister_im, 'threshold', threshold);
-% % load precomputed features from file
-% t1 = readtable( fullfile(outDir, 'testing_features.csv') );
-% feature_labels_test = t1.Properties.VariableNames;
-% features_norm_test = table2array( t1 );
 % save features
-t1 = num2cell( features_norm_test );
+t1 = num2cell( features_raw );
 t1 = [feature_labels_test; t1];
 writecell( t1, fullfile(outDir, 'testing_features.csv') )
 

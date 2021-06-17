@@ -91,6 +91,7 @@ function label_auto_main( params )
     else
         sesInfo = [];
         sm_path = params.sm_path;
+        tc_path = params.tc_path;
         mask_path = params.mask_path;
         flag_sort_fnc = 0;
     end
@@ -105,11 +106,16 @@ function label_auto_main( params )
     end
 
     % predict network labels (0=artifact, 1=network)
-    % network_labels = label_network( sesInfo, sm_path, params.fit_method );
     if params.skip_noise
-        network_labels = readmatrix( fullfile( params.outpath, 'network_labels.csv' ) );
+        nc_out = fullfile( params.outpath, 'network_labels.csv' );
+        if exist( nc_out ) == 2
+            network_labels = readmatrix( nc_out );
+        else
+            % For some reason user chose not to run noisecloud, so assume all components are resting-state networks.
+            network_labels = 1;
+        end
     else
-        network_labels = label_network_nc( fullfile( params.outpath, 'nc' ), sesInfo, sm_path, params.noise_training_set, params.threshold );
+        network_labels = label_network_nc( fullfile( params.outpath, 'nc' ), sesInfo, sm_path, tc_path, params.noise_training_set, params.threshold );
         csvwrite( fullfile(params.outpath, 'network_labels.csv'), network_labels )
     end
     
