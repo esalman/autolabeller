@@ -1,27 +1,47 @@
 % 
 % 
 % 
-function func_pred = label_functional( sm_file, mask_file, threshold, networks, atlas_name, n )
+function func_pred = label_functional( sm_file, mask_file, threshold, networks, atlas_name, n, outpath )
 
     atlas = load_atlas( atlas_name );
+    outpath = fullfile( outpath, 'nc' );
 
-    sm_dat = fmri_data( sm_file, mask_file, 'noverbose' );
-    atlas_dat = fmri_data( atlas.path, mask_file, 'noverbose' );
+    % resample
+    if ~exist( fullfile( outpath, ['r' atlas.path] ) )
+        disp('resampling the atlas to input')
+        sm_dat = spm_vol( sm_file );
+        src_img = [sm_file ',1'];
+        noisecloud_spm_coregister( src_img, atlas.path, [], outpath );
+        [~,ff,xx] = fileparts(atlas.path);
+        atlas.path = fullfile( outpath, ['r' ff xx] );
+    end
+    
+    % load data
+    sm_dat = spm_read_vols( spm_vol( sm_file ) );
+    [vx, vy, vz, n_vols] = size( sm_dat );
+    mask_dat = spm_read_vols( spm_vol( mask_file ) );
+    atlas_dat = spm_read_vols( spm_vol( atlas.path ) );
+
+    % reshape
+    sm_dat = reshape( sm_dat, prod([vx, vy, vz]), [] );
+    atlas_dat = reshape( atlas_dat, prod([vx, vy, vz]), [] );
+
+    % apply the mask
+    idx = find( mask_dat );
+    sm_dat = sm_dat( idx, : );
+    atlas_dat = atlas_dat( idx, : );
 
     % threshold if needed
     if threshold
-        sm_dat.dat( abs( sm_dat.dat ) < threshold ) = 0;
+        sm_dat( abs( sm_dat ) < threshold ) = 0;
     end
-
-    sm_dat = resample_space( sm_dat, atlas_dat );
-    n_vols = size(sm_dat.dat, 2);
 
     disp('masking atlas')
     atlas_V_2D = convert_atlas2d( atlas.name, atlas_dat );
 
     disp('computing correlation')
     func_pred = cell( n_vols, 2*(n+1) );
-    corrs_ = corr( sm_dat.dat, atlas_V_2D );
+    corrs_ = corr( sm_dat, atlas_V_2D );
 
     % network flags
     if networks == 1
@@ -85,12 +105,12 @@ function ret = load_atlas( atlas_name )
 function ret = convert_atlas2d( atlas_name, atlas_dat )
     switch atlas_name
     case 'caren'
-        ret = atlas_dat.dat;
+        ret = atlas_dat;
     otherwise
-        s_ = [length(atlas_dat.dat) max( atlas_dat.dat )];
+        s_ = [length(atlas_dat) max( atlas_dat )];
         ret = zeros(s_);
-        for jj = 1:max( atlas_dat.dat )
-            idx = find( atlas_dat.dat == jj );
+        for jj = 1:max( atlas_dat )
+            idx = find( atlas_dat == jj );
             ret( idx, jj ) = 1;
         end
     end

@@ -3,14 +3,13 @@ tStart = tic;
 
 % add requirements to path
 addpath( genpath( '../bin/GroupICATv4.0b/' ) )      % GIFT toolbox
-addpath( genpath( '../bin/CanlabCore/CanlabCore' ) )       % Canlab toolbox
 addpath( '/trdapps/linux-x86_64/matlab/toolboxes/spm12/' )      % SPM12 toolbox
 addpath( '../bin/2019_03_03_BCT' )       % Brain connectivity toolbox
 addpath( '../bin/autolabeller/' )       % add the autolabeller src folder only
 
 % GICA example with fbirn dataset
 clear params;
-params.param_file = '/data/mialab/users/salman/projects/fBIRN/current/data/ICAresults_C100_fbirn/fbirnp3_rest_ica_parameter_info.mat';
+params.param_file = '/data/users2/salman/projects/fBIRN/current/data/ICAresults_C100_fbirn/fbirnp3_rest_ica_parameter_info.mat';
 params.outpath = '../results/fbirn_debug/';
 params.fit_method = 'mnr';
 params.n_corr = 3;

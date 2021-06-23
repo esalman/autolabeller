@@ -92,7 +92,10 @@ function label_auto_main( params )
     else
         sesInfo = [];
         sm_path = params.sm_path;
-        tc_path = params.tc_path;
+        tc_path = '';
+        if isfield( params, 'tc_path' )
+            tc_path = params.tc_path;
+        end
         mask_path = params.mask_path;
         flag_sort_fnc = 0;
     end
@@ -125,7 +128,7 @@ function label_auto_main( params )
         anat_labels = readtable( fullfile( params.outpath, ['anatomical_labels_' params.anatomical_atlas '.csv'] ) );
         anat_labels = [anat_labels.Properties.VariableNames; table2cell( anat_labels )];
     else
-        [anat_labels, corrs_] = label_anatomical( sm_path, mask_path, params.threshold, network_labels, params.anatomical_atlas, params.n_corr);
+        [anat_labels, corrs_] = label_anatomical( sm_path, mask_path, params.threshold, network_labels, params.anatomical_atlas, params.n_corr, params.outpath );
         csvwrite( fullfile(params.outpath, 'anatomical_correlations.csv'), corrs_ )
     end
     
@@ -134,7 +137,7 @@ function label_auto_main( params )
         func_labels = readtable( fullfile( params.outpath, ['functional_labels_' params.functional_atlas '.csv'] ) );
         func_labels = [func_labels.Properties.VariableNames; table2cell( func_labels )];
     else
-        func_labels = label_functional( sm_path, mask_path, params.threshold, network_labels, params.functional_atlas, params.n_corr);
+        func_labels = label_functional( sm_path, mask_path, params.threshold, network_labels, params.functional_atlas, params.n_corr, params.outpath );
     end
 
     % sort FNC
