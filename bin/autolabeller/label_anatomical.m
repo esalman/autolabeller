@@ -11,12 +11,10 @@ function [anat_pred, corrs_] = label_anatomical( sm_file, mask_file, threshold, 
     aal_labels = readtable( aal_label_path );
 
     % resample
-    if ~exist( fullfile( outpath, ['r' aal_filename] ) )
-        disp('resampling the AAL atlas to input')
-        sm_dat = spm_vol( sm_file );
-        src_img = [sm_file ',1'];
-        noisecloud_spm_coregister( src_img, aal_path, [], outpath );
-    end
+    disp('resampling the AAL atlas to input')
+    sm_dat = spm_vol( sm_file );
+    src_img = [sm_file ',1'];
+    noisecloud_spm_coregister( src_img, aal_path, [], outpath );
 
     % load and flatten all data 
     sm_dat = spm_read_vols( spm_vol( sm_file ) );

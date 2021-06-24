@@ -1,3 +1,5 @@
+% sort the functional label files in order of domain names before running this for reproduction
+
 clear all
 tStart = tic;
 
@@ -5,18 +7,18 @@ addpath( genpath( '/trdapps/linux-x86_64/matlab/toolboxes/GroupICATv4.0b/' ) )  
 addpath( '../bin/' )
 
 outpath = '../results/fbirn_nc_train_sub_th04/';
-param_file = '/data/mialab/users/salman/projects/fBIRN/current/data/ICAresults_C100_fbirn/fbirnp3_rest_ica_parameter_info.mat';
-functional_atlas = 'yeo_buckner';
+param_file = '/data/users2/salman/projects/fBIRN/current/data/ICAresults_C100_fbirn/fbirnp3_rest_ica_parameter_info.mat';
 dataset_ = 'FBIRN';
-% functional_atlas = 'gordon2016';
+% functional_atlas = 'yeo_buckner';
+functional_atlas = 'gordon2016';
 % functional_atlas = 'caren';
 
 % outpath = '../results/cobre_nc_train_sub_th04/';
-% param_file = '/data/mialab/users/salman/projects/COBRE/current/results/ica_results_old/cobre1_ica_parameter_info.mat';
+% param_file = '/data/users2/salman/projects/COBRE/current/results/ica_results_old/cobre1_ica_parameter_info.mat';
 % dataset_ = 'COBRE';
-% functional_atlas = 'yeo_buckner';
+% % functional_atlas = 'yeo_buckner';
 % % functional_atlas = 'gordon2016';
-% % functional_atlas = 'caren';
+% functional_atlas = 'caren';
 
 fontname = 'Jost';
 
@@ -32,10 +34,10 @@ num_IC = sesInfo.numComp;
 post_process = load( fullfile(sesInfo.outputDir, [sesInfo.userInput.prefix '_postprocess_results.mat']) );
 fnc_unsorted = squeeze( mean( post_process.fnc_corrs_all ) );
 
+sorted_idx = func_labels.volume;
 % plot FNC including noise
-fnc = readmatrix( fullfile( outpath, ['sorted_fnc_' functional_atlas '.csv'] ) );
+fnc = fnc_unsorted(sorted_idx, sorted_idx);
 
-sorted_idx = readmatrix( fullfile( outpath, ['sorted_network_idx_' functional_atlas '.csv'] ) );
 noise_idx = setdiff(1:num_IC, sorted_idx)';
 full_idx = [sorted_idx; noise_idx];
 max_fnc = max( abs( fnc_unsorted(:) ) );
@@ -48,7 +50,7 @@ mod_ = [length(sorted_idx); length(noise_idx)];
 
 figure
 my_icatb_plot_FNC(fnc_unsorted(full_idx, full_idx), [-max_fnc max_fnc], cell(1, num_IC), full_idx, gcf, 'Correlation', [], mod_, mod_names, 1);
-title({['(B) ',dataset_,' dataset reordered FNC matrix']}, 'fontname', 'Jost', 'fontsize', 14)
+title({['(E) ',dataset_,' dataset reordered FNC matrix']}, 'fontname', 'Jost', 'fontsize', 14)
 set(gcf, 'color', 'w')
 export_fig(fullfile(outpath, [dataset_ '_fnc_reordered_' functional_atlas '.png']), '-r150', '-p0.01')
 
@@ -59,7 +61,7 @@ mod_names = {''};
 
 figure
 my_icatb_plot_FNC(fnc_unsorted, [-max_fnc max_fnc], cell(1, num_IC), 1:num_IC, gcf, 'Correlation', [], mod_, mod_names, 1);
-title({['(A) ',dataset_,' dataset unsorted FNC matrix']}, 'fontname', 'Jost', 'fontsize', 14)
+title({['(D) ',dataset_,' dataset unsorted FNC matrix']}, 'fontname', 'Jost', 'fontsize', 14)
 ylabel('Components', 'fontweight', 'normal', 'fontsize', 14, 'fontname', fontname)
 set(gcf, 'color', 'w')
 export_fig(fullfile(outpath, [dataset_ '_fnc_unsorted_' functional_atlas '.png']), '-r150', '-p0.01')
@@ -73,7 +75,7 @@ mod_ = accumarray(aff, 1);
 
 figure
 my_icatb_plot_FNC(fnc_unsorted(sorted_idx, sorted_idx), [-max_fnc max_fnc], cell(1, num_IC), sorted_idx, gcf, 'Correlation', [], mod_, mod_names, 1);
-title({['(C) ',dataset_,' dataset ICN FNC matrix'], ['Functional parcellation: ' strrep(functional_atlas, '_', '-')]}, 'fontname', 'Jost', 'fontsize', 14)
+title({['(A) ',dataset_,' dataset ICN FNC matrix'], ['Functional parcellation: ' strrep(functional_atlas, '_', '-')]}, 'fontname', 'Jost', 'fontsize', 14)
 set(gcf, 'color', 'w')
 export_fig(fullfile(outpath, [dataset_ '_fnc_icn_' functional_atlas '.png']), '-r150', '-p0.01')
 

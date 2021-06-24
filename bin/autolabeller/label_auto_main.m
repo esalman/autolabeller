@@ -88,6 +88,9 @@ function label_auto_main( params )
         sm_path = fullfile(sesInfo.outputDir, [sesInfo.aggregate_components_an3_file '.nii']);
         tc_path = '';
         mask_path = fullfile(sesInfo.outputDir, [sesInfo.userInput.prefix 'Mask.img']);
+        if ~exist( mask_path )
+            mask_path = fullfile(sesInfo.outputDir, [sesInfo.userInput.prefix 'Mask.nii'])
+        end
         flag_sort_fnc = 1;
     else
         sesInfo = [];

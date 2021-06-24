@@ -10,7 +10,6 @@ Autolabeller is written in Matlab™ and requires several Matlab toolboxes to ru
 
 - [GIFT](https://github.com/trendscenter/gift)
 - [SPM12](https://www.fil.ion.ucl.ac.uk/spm/software/spm12/)
-- [CanlabCore](https://github.com/canlab/CanlabCore)
 - [BCT Toolbox](https://sites.google.com/site/bctnet/) (March 2019 release)
 
 ## Using the autolabeller
@@ -97,5 +96,6 @@ This will generate the updated anatomical/functional label files and IC order fo
 
 ## Citation
 
-Salman, M.S., Wager, T.D., Damaraju, E.C., Abrol, A., Calhoun, V.D., 2020. An Approach to Automatically Label & Order Brain Activity/Component Maps. bioRxiv 2020.08.31.275578. https://doi.org/10.1101/2020.08.31.275578
+Salman, M. S., Wager, T., Damaraju, E., Abrol, A., Vergara, V., Fu, Z., & Calhoun, V. (2021). An Approach to Automatically Label & Order Brain Activity/Component Maps. Brain Connectivity, brain.2020.0950. https://doi.org/10.1089/brain.2020.0950
+
 
