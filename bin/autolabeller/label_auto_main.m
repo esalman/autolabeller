@@ -89,7 +89,7 @@ function label_auto_main( params )
         tc_path = '';
         mask_path = fullfile(sesInfo.outputDir, [sesInfo.userInput.prefix 'Mask.img']);
         if ~exist( mask_path )
-            mask_path = fullfile(sesInfo.outputDir, [sesInfo.userInput.prefix 'Mask.nii'])
+            mask_path = fullfile(sesInfo.outputDir, [sesInfo.userInput.prefix 'Mask.nii']);
         end
         flag_sort_fnc = 1;
     else

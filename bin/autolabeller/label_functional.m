@@ -41,7 +41,7 @@ function func_pred = label_functional( sm_file, mask_file, threshold, networks, 
 
     disp('computing correlation')
     func_pred = cell( n_vols, 2*(n+1) );
-    corrs_ = corr( sm_dat, atlas_V_2D );
+    corrs_ = icatb_corr( sm_dat, atlas_V_2D );
 
     % network flags
     if networks == 1

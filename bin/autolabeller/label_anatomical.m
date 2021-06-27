@@ -68,7 +68,7 @@ function [anat_pred, corrs_] = label_anatomical( sm_file, mask_file, threshold, 
     anat_pred(:, 2) = num2cell( networks );
 
     disp('computing correlation')
-    corrs_ = corr( sm_dat, aal_V_4D, 'rows', 'pairwise' );
+    corrs_ = icatb_corr( sm_dat, aal_V_4D );
     % % perform Matthew's correlation
     % corrs_ = icatb_corr_matthews( sm_dat, aal_V_4D );
 
