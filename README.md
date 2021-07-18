@@ -75,7 +75,7 @@ Example code can be found in `src/example_label_ic.m`.
 
 ### Outputs
 The following files are written into params.outpath folder:
-* `network_labels.csv` Network labels vector (0=artifact, 1=network) and probability that the component/spatial map is a network
+* `network_labels.csv` Network labels vector (0=artifact, 1=network)
 * `anatomical_labels.csv` AAL anatomical region with highest correlations to the spatial maps
 * `functional_labels.csv` Functional parcellations with highest correlations to the spatial maps
 * `sorted_IC_idx.csv` sorted IC index

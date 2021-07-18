@@ -4,7 +4,7 @@ clear all
 tStart = tic;
 
 addpath( genpath( '/trdapps/linux-x86_64/matlab/toolboxes/GroupICATv4.0b/' ) )      % GIFT toolbox
-addpath( '../bin/' )
+addpath( '../bin/my_icatb_plot_FNC.m' )
 
 outpath = '../results/fbirn_nc_train_sub_th04/';
 param_file = '/data/users2/salman/projects/fBIRN/current/data/ICAresults_C100_fbirn/fbirnp3_rest_ica_parameter_info.mat';

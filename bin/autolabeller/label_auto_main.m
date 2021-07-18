@@ -146,7 +146,11 @@ function label_auto_main( params )
     % sort FNC
     if flag_sort_fnc
         % load unsorted FNC
-        fnc = squeeze( mean( post_process.fnc_corrs_all ) );
+        % works for session=1 only
+        % fnc = squeeze( mean( post_process.fnc_corrs_all ) );
+        t1 = size( post_process.fnc_corrs_all );
+        t2 = numel( t1( 1:end-2 ) );
+        fnc = squeeze( mean( post_process.fnc_corrs_all, 1:t2 ) );
         [sorted_idx, network_fnc, order_] = sort_fnc( fnc, func_labels(2:end,1:3) );
 
         % sort the other labels
