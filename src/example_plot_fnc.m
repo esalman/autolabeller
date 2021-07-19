@@ -32,7 +32,10 @@ num_IC = sesInfo.numComp;
 
 % plot unsorted FNC for comparison
 post_process = load( fullfile(sesInfo.outputDir, [sesInfo.userInput.prefix '_postprocess_results.mat']) );
-fnc_unsorted = squeeze( mean( post_process.fnc_corrs_all ) );
+% fnc_unsorted = squeeze( mean( post_process.fnc_corrs_all ) );
+t1 = size( post_process.fnc_corrs_all );
+t2 = numel( t1( 1:end-2 ) );
+fnc_unsorted = squeeze( mean( post_process.fnc_corrs_all, 1:t2 ) );
 
 sorted_idx = func_labels.volume;
 % plot FNC including noise
