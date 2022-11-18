@@ -5,17 +5,17 @@ addpath( genpath( '../bin/GroupICATv4.0b/' ) )
 addpath( '/trdapps/linux-x86_64/matlab/toolboxes/spm12/' )
 addpath( genpath( '../bin/MCIv4/' ) )
 addpath( genpath( '../bin/CanlabCore/' ) )
-addpath( '/data/mialab/users/salman/projects/funfc/src/' )
+addpath( '/data/users2/salman/projects/funfc/src/' )
 
 % % fbirn
 % outpath = '../results/fbirn_trained_by_neuromark/';
-% param_file = '/data/mialab/users/salman/projects/fBIRN/current/data/ICAresults_C100_fbirn/fbirnp3_rest_ica_parameter_info.mat';
+% param_file = '/data/users2/salman/projects/fBIRN/current/data/ICAresults_C100_fbirn/fbirnp3_rest_ica_parameter_info.mat';
 % anatomical_atlas = 'aal';
 % functional_atlas = 'yeo_buckner';
 
 % cobre
 outpath = '../results/cobre_trained_by_neuromark/';
-param_file = '/data/mialab/users/salman/projects/COBRE/current/results/ica_results_old/cobre1_ica_parameter_info.mat';
+param_file = '/data/users2/salman/projects/COBRE/current/results/ica_results_old/cobre1_ica_parameter_info.mat';
 anatomical_atlas = 'aal';
 functional_atlas = 'yeo_buckner';
 

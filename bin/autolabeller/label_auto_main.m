@@ -137,8 +137,12 @@ function label_auto_main( params )
     
     % predict functional labels
     if params.skip_functional
-        func_labels = readtable( fullfile( params.outpath, ['functional_labels_' params.functional_atlas '.csv'] ) );
-        func_labels = [func_labels.Properties.VariableNames; table2cell( func_labels )];
+        % check if the func label file exists
+        fl = fullfile( params.outpath, ['functional_labels_' params.functional_atlas '.csv'] );
+        if exist( fl )        
+            func_labels = readtable( fl );
+            func_labels = [func_labels.Properties.VariableNames; table2cell( func_labels )];
+        end
     else
         func_labels = label_functional( sm_path, mask_path, params.threshold, network_labels, params.functional_atlas, params.n_corr, params.outpath );
     end
@@ -163,8 +167,12 @@ function label_auto_main( params )
     end
 
     % write output
-    writecell( anat_labels, fullfile(params.outpath, ['anatomical_labels_' params.anatomical_atlas '.csv']) )
-    writecell( func_labels, fullfile(params.outpath, ['functional_labels_' params.functional_atlas '.csv']) )
+    if ~params.skip_anatomical
+        writecell( anat_labels, fullfile(params.outpath, ['anatomical_labels_' params.anatomical_atlas '.csv']) )
+    end
+    if ~params.skip_functional
+        writecell( func_labels, fullfile(params.outpath, ['functional_labels_' params.functional_atlas '.csv']) )
+    end
     if flag_sort_fnc
         csvwrite( fullfile(params.outpath, ['sorted_network_idx_' params.functional_atlas '.csv']), sorted_idx )
         csvwrite( fullfile(params.outpath, ['sorted_fnc_' params.functional_atlas '.csv']), network_fnc )

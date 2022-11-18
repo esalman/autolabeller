@@ -75,13 +75,29 @@ Example code can be found in `src/example_label_ic.m`.
 
 ### Outputs
 The following files are written into params.outpath folder:
-* `network_labels.csv` Network labels vector (0=artifact, 1=network)
-* `anatomical_labels.csv` AAL anatomical region with highest correlations to the spatial maps
-* `functional_labels.csv` Functional parcellations with highest correlations to the spatial maps
-* `sorted_IC_idx.csv` sorted IC index
-* `sorted_fnc.csv` sorted FNC matrix
+* `network_labels.csv` is a vector of 0/1 corresponding to the input spatial maps; 0=artifact, 1=network
+* `anatomical_labels.csv` has the following columns:
+    * `volume` 1-N where N is the number of input spatial maps
+    * `network` a vector of 0/1 corresponding to the input spatial maps; 0=artifact, 1=network
+    * `region_1`,`spatial_corr_1` AAL anatomical region with the highest spatial correlation to the spatial maps, and the correlation value
+    * `region_2`,`spatial_corr_2`,`region_3`,`spatial_corr_3` AAL anatomical region with the second and third highest spatial correlations to the spatial maps, and the corresponding correlation values
+* `functional_labels_[atlas].csv` has the following columns:
+    * `volume` 1-N where N is the number of input spatial maps
+    * `network` a vector of 0/1 corresponding to the input spatial maps; 0=artifact, 1=network
+    * `region_1`,`spatial_corr_1` Functional parcellation from [atlas] with highest spatial correlation to the spatial maps, and the correlation value. Current available atlas are Yeo/BucknerLab, Gordon (2016), and CAREN 
+    * `region_2`,`spatial_corr_2`,`region_3`,`spatial_corr_3` Functional parcellations with the second and third highest correlations to the spatial maps, and the corresponding correlation values
+* `sorted_IC_idx_[atlas].csv` sorted index of the input spatial maps corresponding to the brain networks (artifact-related component indexes are removed)
+* `sorted_fnc_[atlas].csv` sorted functional network connectivity (FNC) matrix of the brain networks 
+* `nc` folder contains the noisecloud toolbox output. It has the following files:
+    * `*.nii` template `nii` files warped into the same space as the input spatial maps.
+    * `nc_class_labels.txt` a vector of 0/1 corresponding to the input spatial maps; 0=artifact, 1=network
+    * `training/testing_features.csv` contains the training/testing input data features used by the noisecloud toolbox in classification.  
 
 ## Result
+
+The following figures are generated using the `./src/example_plot_fnc.m` script. 
+You can update the ICA parameter file and autolabeller output folder locations in the above to generate new figures.
+The script uses ICA parameter file to load the FNC from the ICA post-process result.
 
 <img src="results/fbirn_nc_train_sub_th04/FBIRN_fnc_unsorted_yeo_buckner.png" alt="unsorted" width="150"/> <img src="results/fbirn_nc_train_sub_th04/FBIRN_fnc_reordered_yeo_buckner.png" alt="reordered" width="150"/> <img src="results/fbirn_nc_train_sub_th04/FBIRN_fnc_icn_yeo_buckner.png" alt="icn" width="150"/>
 
